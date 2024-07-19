@@ -33,14 +33,13 @@ const OrderActionColumn = ({ order }: ActionColumnProps) => {
 
   const utils = api.useUtils();
   const t = useTranslations("dashboard.orders");
-  const { mutateAsync, isPending } =
-    api.dashboard.orders.update.useMutation({
-      onSuccess: () => {
-        utils.dashboard.orders.getAllOrders.invalidate();
-        utils.dashboard.orders.getLatestOrders.invalidate();
-        utils.dashboard.getDashboardSummary.invalidate();
-      },
-    });
+  const { mutateAsync, isPending } = api.dashboard.orders.update.useMutation({
+    onSuccess: () => {
+      utils.dashboard.orders.getAllOrders.invalidate();
+      utils.dashboard.orders.getLatestOrders.invalidate();
+      utils.dashboard.getDashboardSummary.invalidate();
+    },
+  });
 
   const deleteOrderHandler = async () => {
     toast.promise(
@@ -52,13 +51,13 @@ const OrderActionColumn = ({ order }: ActionColumnProps) => {
           status: "delete",
         }),
         success() {
-          setOpenDelete(false);
+          setOpenDelete(true);
           return t("toast.success", {
             status: "delete",
           });
         },
         error() {
-          setOpenDelete(false);
+          setOpenDelete(true);
           return t("toast.error", {
             status: "delete",
           });

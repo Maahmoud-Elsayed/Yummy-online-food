@@ -59,10 +59,11 @@ const UserActionColumn = ({ user }: UserActionColumnProps) => {
       {
         loading: t("toast.loading", { status: "suspend" }),
         success() {
-          setOpenSuspend(false);
+          setOpenSuspend(true);
           return t("toast.success", { status: "suspend" });
         },
         error(error) {
+          setOpenSuspend(true);
           return error.message ?? t("toast.failed", { status: "suspend" });
         },
       },
@@ -77,10 +78,11 @@ const UserActionColumn = ({ user }: UserActionColumnProps) => {
       {
         loading: t("toast.loading", { status: "delete" }),
         success() {
-          setOpenDelete(false);
+          setOpenDelete(true);
           return t("toast.success", { status: "delete" });
         },
         error(error) {
+          setOpenDelete(true);
           return error.message ?? t("toast.failed", { status: "delete" });
         },
       },

@@ -19,7 +19,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
 
@@ -82,7 +82,6 @@ const ConfirmPassword = ({
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          const form = useForm()
           <FormField
             control={control}
             name="currentPassword"
