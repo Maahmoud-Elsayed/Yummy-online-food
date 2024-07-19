@@ -1,0 +1,617 @@
+{
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "categories": "Categories",
+    "menu": "Categories",
+    "my-orders": "My orders",
+    "my-account": "My account",
+    "accountSettings": "Account settings",
+    "overview": "Overview",
+    "products": "Products",
+    "allProducts": "All products",
+    "add-product": "Add product",
+    "orders": "Orders",
+    "users": "Users",
+    "breadCrumb": {
+      "title": "Navigate to",
+      "close": "Close",
+      "select": "Select a page to navigate to."
+    }
+  },
+  "roles": {
+    "MANAGER": "Manager",
+    "USER": "User",
+    "ADMIN": "Admin"
+  },
+  "ui": {
+    "loading": "Loading...",
+    "wait": "Please wait..."
+  },
+  "header": {
+    "buttons": {
+      "signIn": "Login",
+      "register": "Create account",
+      "signOut": "Log out",
+      "dashboard": "Dashboard",
+      "language": "Language",
+      "languages": {
+        "en": "English",
+        "ar": "العربية"
+      }
+    }
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty!",
+    "remove": "Remove",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "deliveryFee": "Delivery fee",
+    "checkout": "Continue to checkout",
+    "addItems": "Add items to your cart to checkout",
+    "each": "Per each",
+    "Small": "Small",
+    "Medium": "Medium",
+    "Large": "Large",
+    "toast": {
+      "failed": "Something went wrong. Failed to update cart",
+      "error": "Something went wrong. Failed to continue to checkout"
+    }
+  },
+  "footer": {
+    "links": {
+      "company": {
+        "title": "Company",
+        "links": {
+          "Parteners": "Parteners",
+          "Blog": "Blog",
+          "Team": "Team",
+          "Careers": "Careers"
+        }
+      },
+      "resources": {
+        "title": "Resources",
+        "links": {
+          "Help": "Help",
+          "Support": "Support",
+          "FAQ": "FAQ",
+          "Contact": "Contact"
+        }
+      },
+      "about": {
+        "title": "About",
+        "links": {
+          "Terms": "Terms",
+          "License": "License",
+          "Privacy": "Privacy",
+          "About us": "About us"
+        }
+      }
+    },
+    "copyright": "All rights reserved.",
+    "social": "Follow us on",
+    "app": "Get the app"
+  },
+  "pages": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "login": "Sign in",
+      "forgot": "Forgot password?",
+      "register": "Sign up",
+      "create": "Don't have an account?",
+      "or": "Or",
+      "google": "Continue with Google",
+      "gitHub": "Continue with GitHub"
+    },
+    "register": {
+      "title": "Sign up",
+      "userName": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirm": "Confirm password",
+      "register": "Sign up",
+      "login": "Sign in",
+      "signIn": "Already have an account?"
+    },
+    "home": {
+      "heroSection": {
+        "title": "Order food online",
+        "description": "Explore and Order Delicious Meals Online Anytime, Anywhere",
+        "button": "Order Now"
+      },
+      "productsSection": {
+        "latest": "New Arrivals",
+        "discount": "Special Discounts",
+        "popular": "Popular Choices",
+        "empty": "No Products Available",
+        "card": {
+          "featured": "Discover All Featured",
+          "popular": "Discover All Popular",
+          "sales": "Discover All Sales",
+          "featuredDescription": "Explore our full range of featured products",
+          "popularDescription": "Explore our full range of popular products",
+          "salesDescription": "Explore our full range of sales products"
+        }
+      },
+      "deliverySection": {
+        "title": "Your everyday, right away",
+        "description": "Order food and grocery delivery online from hundreds of restaurants and shops nearby.",
+        "mealsCard": {
+          "title": "Meals",
+          "description": "Find deals, free delivery, and more from our restaurant partners."
+        },
+        "groceriesCard": {
+          "title": "Groceries",
+          "description": "Don't stand in line - order online! Choose from top stores delivering groceries to you."
+        },
+        "desertsCard": {
+          "title": "Desserts",
+          "description": "Discover delicious desserts here. Cakes, pastries, and more."
+        },
+        "button": "Explore"
+      },
+      "getAppSection": {
+        "title": "Discover the new app in store",
+        "description": "Get what you need, when you need it."
+      },
+      "modals": {
+        "admin": {
+          "title": "Try admin features",
+          "description": "Explore the admin dashboard with our temporary admin account.",
+          "close": "Close",
+          "login": "Try it"
+        }
+      }
+    },
+    "products": {
+      "title": "Products",
+      "placeholder": "Search...",
+      "categories": "Categories",
+      "empty": "No Products Available",
+      "sort": {
+        "title": "Sort",
+        "none": "None",
+        "sortBy": "Sort by",
+        "price": "Price",
+        "rating": "Rating",
+        "date": "Date",
+        "sales": "Sales",
+        "highToLow": "High to low",
+        "lowToHigh": "Low to high",
+        "newest": "Newest",
+        "oldest": "Oldest",
+        "highest": "Highest",
+        "lowest": "Lowest",
+        "mostSelling": "Most selling"
+      },
+      "filter": {
+        "title": "Filter",
+        "categories": "Categories",
+        "discount": "Discount",
+        "discountOnly": "Discount only",
+        "minPrice": "Min price",
+        "maxPrice": "Max price"
+      },
+      "modals": {
+        "addToCart": {
+          "title": "Add Item Choices",
+          "size": "Your choice of size",
+          "choose": "Choose 1",
+          "additions": "Additions",
+          "select": "Choose items from the list",
+          "addToCart": "Add to cart",
+          "priceSelection": "Price on selection",
+          "add": "ADD",
+          "price": "Price",
+          "Small": "Small",
+          "Medium": "Medium",
+          "Large": "Large",
+          "error": "Something went wrong. Failed to add items to cart"
+        }
+      }
+    },
+    "productDetails": {
+      "overview": "Overview",
+      "reviews": "Reviews",
+      "qty": "Quantity",
+      "size": "Size",
+      "additions": "Additions",
+      "choose": "Choose 1",
+      "description": "Description",
+      "addToCart": "Add to cart",
+      "yourReview": "Your review",
+      "edit": "Edit",
+      "addReview": "Add review",
+      "yourRating": "Your rating",
+      "share": "Share your thoughts with the world",
+      "submit": "Submit",
+      "Small": "Small",
+      "Medium": "Medium",
+      "Large": "Large",
+      "save": "Save",
+      "priceOnSelection": "Price on selection",
+      "noReviews": "No reviews yet",
+      "seeMore": "See more",
+      "addComment": "Add comment",
+      "add": "ADD",
+      "new": "NEW",
+      "popular": "Popular",
+      "error": "Something went wrong. Failed to add items to cart",
+      "reviewError": "Something went wrong. Failed to add review",
+      "reviewSuccess": "Your review has been submitted successfully"
+    },
+    "myAccount": {
+      "title": "Account Settings",
+      "userName": "User Name",
+      "email": "Email",
+      "password": "Password",
+      "newPassword": "New Password",
+      "confirm": "Confirm Password",
+      "remove": "Remove",
+      "image": "Choose Image",
+      "save": "Save Changes",
+      "deleteAccount": "Delete Account",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "credentialsMsg": "Please enter your password to delete your account",
+      "oauthMsg": "Are you sure you want to delete your account?",
+      "editAccount": "Edit Account",
+      "editMsg": "Please enter your current password to make changes",
+      "currentPassword": "Current Password",
+      "toast": {
+        "loading": "Updating account...",
+        "success": "Account updated successfully",
+        "failed": "Failed to update account"
+      }
+    },
+    "myOrders": {
+      "title": "My Orders",
+      "empty": "No orders yet",
+      "PENDING": "Pending",
+      "DELIVERED": "Delivered",
+      "CANCELED": "Canceled",
+      "PAID": "Paid",
+      "order": "Order",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "deliveryFee": "Delivery fee",
+      "totalQuantity": "Total quantity",
+      "status": "Status",
+      "date": "Date",
+      "cancelOrder": "Cancel order",
+      "viewOrder": "View order",
+      "continueCheckout": "Continue checkout",
+      "placed": "Placed on",
+      "receipt": "Receipt",
+      "amount": "Amount",
+      "summary": "Summary",
+      "customerDetails": "Customer details",
+      "name": "Name",
+      "email": "Email",
+      "address": "Address",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "postal_code": "Postal code",
+      "line1": "Address 1",
+      "line2": "Address 2",
+      "additions": "Additions",
+      "size": "Size",
+      "Small": "Small",
+      "Medium": "Medium",
+      "Large": "Large",
+      "toast": {
+        "loading": "Cancelling order...",
+        "success": "Order cancelled successfully",
+        "failed": "Failed to cancel order",
+        "error": "Failed to continue checkout"
+      }
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "Sorry, the page that you are looking for doesn't exist. Please make sure that you typed the correct URL page Link, and then try again.",
+      "backToHome": "Back to home"
+    },
+    "suspended": {
+      "title": "Account Suspended",
+      "description": "Your account has been suspended. Please contact support.",
+      "goToHome": "Go to homepage"
+    },
+    "error": {
+      "title": "Something went wrong!",
+      "description": "Oops! An unexpected error has occurred. Please click \" Try Again \" to attempt to fix the issue.",
+      "tryAgain": "Try Again"
+    },
+    "denied": {
+      "title": "Access Denied",
+      "description": "Oops! It looks like you don't have permission to access this page. If you think this is a mistake, please reach out to our support team.",
+      "goToHome": "Go to homepage"
+    },
+    "resetPassword": {
+      "title": "Reset Password",
+      "email": "Email",
+      "expired": "Link Expired or Invalid",
+      "expiredMsg": "Your password reset link has expired or is invalid. Please request a new password reset.",
+      "reset": "Reset",
+      "success": "Your password has been reset successfully. Please check your email",
+      "changedMsg": "Your password has been changed successfully",
+      "request": "Request New Link",
+      "newPassword": "New Password",
+      "confirm": "Confirm Password"
+    }
+  },
+  "dashboard": {
+    "overview": {
+      "title": "Overview",
+      "totalProducts": "Total Products",
+      "totalRevenue": "Total Revenue",
+      "totalSales": "Total Sales",
+      "totalOrders": "Total Orders",
+      "totalUsers": "Total Users",
+      "totalCategories": "Total Categories",
+      "fromLastMonth": "From last month",
+      "transactions": {
+        "title": "Transactions",
+        "description": "Recent transactions from your store.",
+        "customer": "Customer",
+        "date": "Date",
+        "amount": "Amount",
+        "status": "Status",
+        "PENDING": "Pending",
+        "DELIVERED": "Delivered",
+        "CANCELED": "Canceled",
+        "PAID": "Paid",
+        "viewAll": "View all"
+      }
+    },
+    "categories": {
+      "title": "Categories",
+      "totalCategories": "Total Categories",
+      "nameEn": "Name (English)",
+      "nameAr": "Name (Arabic)",
+      "products": "Products",
+      "edit": "Edit",
+      "delete": "Delete",
+      "empty": "No Categories Found",
+      "modals": {
+        "new": {
+          "title": "Add New Category",
+          "addCategory": "Add Category",
+          "nameEn": "Name (English)",
+          "nameAr": "Name (Arabic)",
+          "save": "Create",
+          "uploadImg": "Choose Image",
+          "toast": {
+            "loading": "Creating category...",
+            "success": "Category created successfully",
+            "failed": "Failed to create category"
+          }
+        },
+        "edit": {
+          "title": "Edit Category",
+          "nameEn": "Name (English)",
+          "nameAr": "Name (Arabic)",
+          "uploadImg": "Choose Image",
+          "save": "Save Changes",
+          "toast": {
+            "loading": "Updating category...",
+            "success": "Category updated successfully",
+            "failed": "Failed to update category"
+          }
+        },
+        "delete": {
+          "title": "Delete Category",
+          "description": "This action cannot be undone. Are you sure you want to permanently delete this category?",
+          "delete": "Delete",
+          "cancel": "Cancel",
+          "toast": {
+            "loading": "Deleting category...",
+            "success": "Category deleted successfully",
+            "failed": "Failed to delete category"
+          }
+        }
+      }
+    },
+    "allProducts": {
+      "title": "All Products",
+      "empty": "No Products Found",
+      "category": "Category",
+      "sold": "Sold Items",
+      "reviews": "Reviews",
+      "sizes": "Sizes",
+      "additions": "Additions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "view": "View",
+      "Small": "Small",
+      "Medium": "Medium",
+      "Large": "Large",
+      "off": "OFF",
+      "modals": {
+        "title": "Delete Product",
+        "description": "This action cannot be undone. Are you sure you want to permanently delete this product?",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "toast": {
+          "loading": "Deleting...",
+          "success": "Product deleted successfully",
+          "failed": "Failed to delete product"
+        }
+      }
+    },
+    "addProduct": {
+      "add": "Add Product",
+      "edit": "Edit Product",
+      "update": "Update Product",
+      "create": "Create Product",
+      "productDetails": {
+        "title": "Product Details",
+        "description": "Please fill in the details of the product",
+        "nameEn": "Name (English)",
+        "nameAr": "Name (Arabic)",
+        "descriptionEn": "Description (English)",
+        "descriptionAr": "Description (Arabic)"
+      },
+      "price": {
+        "title": "Price & Size",
+        "description": "Please fill in the price or add sizes of the product",
+        "price": "Price",
+        "discount": "Discount (%)",
+        "addSize": "Add Size",
+        "remove": "Remove",
+        "size": "Size",
+        "error": "Please add size details or remove it"
+      },
+      "additions": {
+        "title": "Additions",
+        "description": "Please add the additions of the product or leave it empty",
+        "addAddition": "Add Addition"
+      },
+      "category": {
+        "title": "Product Category",
+        "category": "Category",
+        "select": "Select Category"
+      },
+      "images": {
+        "title": "Product Image",
+        "upload": "Upload"
+      },
+      "toast": {
+        "loading": "{status, select, create {Creating} other {Updating}} product...",
+        "success": "Product {status, select, create {created} other {updated}} successfully",
+        "failed": "Failed to {status, select, create {create} other {update}} product"
+      }
+    },
+    "users": {
+      "title": "Users",
+      "managers": "Managers",
+      "admins": "Admins",
+      "customers": "Customers",
+      "total": "Total Users",
+      "table": {
+        "asc": "Asc",
+        "desc": "Desc",
+        "hide": "Hide",
+        "view": "View",
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "actions": "Actions",
+        "date": "Date",
+        "reviews": "Reviews",
+        "orders": "Orders",
+        "MANAGER": "Manager",
+        "USER": "User",
+        "ADMIN": "Admin",
+        "ACTIVE": "Active",
+        "SUSPENDED": "Suspended",
+        "filter": "Filter by",
+        "search": "Search by",
+        "all": "All",
+        "toggle": "Toggle columns",
+        "from": "From",
+        "to": "To",
+        "profilePic": "Profile Picture",
+        "delete": "Delete",
+        "empty": "No Users Found",
+        "pickDate": "Pick a date",
+        "suspend": "Suspend",
+        "unSuspend": "Unsuspend",
+        "change": "Change",
+        "selectAction": "Select Action",
+        "save": "Save Changes",
+        "rowsPerPage": "Rows per page",
+        "pages": "Page {page} of {totalPages}",
+        "rows": "{row} of {totalRows, plural, =1 {# row} other {# rows}} selected",
+        "today": "Today",
+        "reset": "Reset"
+      },
+      "toast": {
+        "loading": "{status, select, delete {Deleting...} other {Updating...}}",
+        "success": "{status, select, delete {User has been deleted successfully} other {User has been updated successfully}}",
+        "failed": "{status, select, delete {Failed to delete user} other {Failed to update user}}",
+        "error": "You don't have permission to modify this user , only manager can change users role"
+      },
+      "modals": {
+        "delete": {
+          "title": "Delete User",
+          "description": "This action cannot be undone. Are you sure you want to permanently delete this user?",
+          "delete": "Delete",
+          "cancel": "Cancel"
+        },
+        "suspend": {
+          "title": "{status, select, ACTIVE {Suspend} other {Unsuspend}} User",
+          "description": "Are you sure you want to {status, select, ACTIVE {suspend} other {unsuspend}} this user?",
+          "suspend": "Suspend",
+          "unSuspend": "Unsuspend",
+          "cancel": "Cancel"
+        }
+      }
+    },
+    "orders": {
+      "title": "Orders",
+      "pending": "Pending",
+      "delivered": "Delivered",
+      "canceled": "Canceled",
+      "paid": "Paid",
+      "total": "Total Orders",
+      "table": {
+        "view": "View",
+        "name": "Customer",
+        "PENDING": "Pending",
+        "DELIVERED": "Delivered",
+        "CANCELED": "Canceled",
+        "PAID": "Paid",
+        "email": "Email",
+        "status": "Status",
+        "actions": "Actions",
+        "date": "Date",
+        "orders": "Orders",
+        "quantity": "Quantity",
+        "amount": "Amount",
+        "filter": "Filter by",
+        "search": "Search by",
+        "all": "All",
+        "toggle": "Toggle columns",
+        "from": "From",
+        "to": "To",
+        "delete": "Delete",
+        "empty": "No Orders Found",
+        "pickDate": "Pick a date",
+        "change": "Change",
+        "selectAction": "Select Action",
+        "save": "Save Changes",
+        "rowsPerPage": "Rows per page",
+        "receipt": "View receipt",
+        "pages": "Page {page} of {totalPages}",
+        "rows": "{row} of {totalRows, plural, =1 {# row} other {# rows}} selected"
+      },
+      "toast": {
+        "loading": "{status, select, delete {Deleting...} other {Updating...}}",
+        "success": "{status, select, delete {Order deleted successfully} other {Order status updated successfully}}",
+        "failed": "{status, select, delete {Failed to delete order} other {Failed to update order status}}"
+      },
+      "modal": {
+        "title": "Delete Order",
+        "description": "This action cannot be undone. Are you sure you want to permanently delete this order?",
+        "delete": "Delete",
+        "cancel": "Cancel"
+      }
+    }
+  },
+  "zod": {
+    "email": "Invalid email",
+    "required": "Required",
+    "number": "Invalid number",
+    "shortPw": "Password must be at least {min} characters",
+    "matchPw": "Passwords don't match",
+    "regexPw": "Password must contain at least one uppercase letter and one number",
+    "imgSize": "max Image size must be 4MB",
+    "imgFormat": "Only.jpg, .jpeg, .png and .webp files are accepted.",
+    "price": "At least one of 'price' or 'sizes' must be provided."
+  }
+}

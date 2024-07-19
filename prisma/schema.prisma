@@ -1,0 +1,197 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters", "fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@id([identifier, token])
+  @@map("verification_tokens")
+}
+
+model User {
+  id            String     @id @default(cuid())
+  name          String?
+  email         String     @unique
+  password      String?
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  orders        Order[]
+  role          Role       @default(USER)
+  imageKey      String?
+  accounts      Account[]
+  sessions      Session[]
+  status        UserStatus @default(ACTIVE)
+  reviews       Review[]
+  CartItems     CartItem[]
+
+  @@map("users")
+}
+
+model Product {
+  id             String     @id @default(cuid())
+  name_en        String
+  name_ar        String
+  description_en String
+  description_ar String
+  price          Float
+  finalPrice     Float
+  discount       Float      @default(0)
+  sold           Int        @default(0)
+  image          String
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  category       Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId     String
+  reviews        Review[]
+  avgRate        Float      @default(0)
+  imageKey       String
+  additions      Json?
+  sizes          Json?
+  CartItem       CartItem[]
+
+  @@map("products")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name_en   String    @unique
+  name_ar   String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+  image     String
+  imageKey  String
+
+  @@map("categories")
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  comment     String?
+  rate        Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   User     @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  createdById String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId   String
+
+  @@unique([productId, createdById])
+  @@map("reviews")
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  productId String
+  size      Size    @default(None)
+  additions Json
+  quantity  Int
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+
+  @@unique([productId, size, additions, userId])
+  @@map("cart_items")
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  user          User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userId        String?
+  status        OrderStatus @default(PENDING)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  subTotal      Float
+  total         Float
+  totalQuantity Int
+  items         OrderItem[]
+  address       Json?
+  deliveryFee   Float
+  customerName  String
+  customerEmail String
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id         String @id @default(cuid())
+  productId  String
+  name_en    String
+  name_ar    String
+  size       Size
+  additions  Json?
+  quantity   Int
+  image      String
+  price      Float
+  totalPrice Float
+  order      Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId    String
+}
+
+enum Role {
+  USER
+  ADMIN
+  MANAGER
+}
+
+enum Size {
+  Small
+  Medium
+  Large
+  None   @map("")
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELED
+  DELIVERED
+}
