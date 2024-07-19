@@ -169,6 +169,10 @@ export const authOptions: NextAuthOptions = {
       }
       return true;
     },
+    async redirect({ url, baseUrl }) {
+      // Redirect to the baseUrl if the url is not an absolute URL
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
   },
   session: {
     strategy: "jwt" as const,
