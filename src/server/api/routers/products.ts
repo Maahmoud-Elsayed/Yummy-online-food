@@ -50,19 +50,19 @@ export const productsRouter = createTRPCRouter({
         const where: any = {};
 
         if (filter) {
-          if (filter.minPrice !== undefined) {
+          if (filter.minPrice) {
             where["finalPrice"] = {
               gte: Number(filter.minPrice),
             };
           }
-          if (filter.maxPrice !== undefined) {
+          if (filter.maxPrice) {
             where["finalPrice"] = {
               ...where["finalPrice"],
               lte: Number(filter.maxPrice),
             };
           }
 
-          if (filter.category !== undefined) {
+          if (filter.category) {
             const categories = filter.category.split("-");
             where.OR = [
               {
@@ -82,18 +82,16 @@ export const productsRouter = createTRPCRouter({
             ];
           }
 
-          if (filter.discount !== undefined) {
-            if (filter.discount === "true") {
-              where["discount"] = {
-                gt: 0,
-              };
-            }
+          if (filter.discount && filter.discount === "true") {
+            where["discount"] = {
+              gt: 0,
+            };
           }
-          if (filter.search !== undefined) {
+          if (filter.search) {
             const fullText = filter.search.trim().split(/\s+/).join(" | ");
             const searchWords = filter.search.trim().split(/\s+/);
             where.OR = [
-              ...(where.OR || []),
+              ...(where.OR ?? []),
               {
                 name_ar: {
                   search: fullText,
@@ -118,7 +116,7 @@ export const productsRouter = createTRPCRouter({
           }
         }
 
-        const [pagesCount, totalProducts] = await ctx.db.$transaction([
+        const [productsCount, totalProducts] = await ctx.db.$transaction([
           ctx.db.product.count({ where, orderBy }),
           ctx.db.product.findMany({
             take,
@@ -136,7 +134,7 @@ export const productsRouter = createTRPCRouter({
           }),
         ]);
 
-        const totalPages = Math.ceil(pagesCount / take);
+        const totalPages = Math.ceil(productsCount / take);
         return {
           products:
             totalProducts.length > 0

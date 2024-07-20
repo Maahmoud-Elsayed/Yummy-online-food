@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import ProductCard from "../products/product-card";
 import { PagePagination } from "./page-pagination";
 import { getTranslations } from "next-intl/server";
+import { type Product } from "@/server/api/routers/products";
 
 type ProductListProps = {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -19,10 +20,17 @@ const ProductsList = async ({ searchParams }: ProductListProps) => {
   if (!validateParams.success) {
     notFound();
   }
-  const { products, totalPages, hasNextPage } = await api.products.getAll(
-    validateParams.data,
-  );
-  if (page > totalPages + 1) {
+  let products: Product[] = [];
+  let totalPages = 0;
+  let hasNextPage = false;
+  try {
+    const data = await api.products.getAll(validateParams.data);
+    products = data.products ?? [];
+    totalPages = data.totalPages ?? 0;
+    hasNextPage = data.hasNextPage ?? false;
+  } catch (error) {}
+
+  if (page !== 1 && page > totalPages) {
     notFound();
   }
   const t = await getTranslations("pages.products");

@@ -10,7 +10,7 @@ const FoodDelivery = () => {
   const locale = useLocale() as Locale;
   return (
     <section>
-      <Container className="mt-20">
+      <Container className="mt-20 overflow-x-hidden">
         <div className="mb-10">
           <h2 className="text-center text-2xl font-semibold text-foreground">
             {t("title")}

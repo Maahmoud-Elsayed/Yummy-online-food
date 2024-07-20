@@ -15,7 +15,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { type Locale } from "@/navigation";
 
 type ProductCardProps = {
-  product: Omit<Product, "category">;
+  product: Product;
   type?: "featured" | "popular";
 };
 const ProductCard = async ({ product, type }: ProductCardProps) => {

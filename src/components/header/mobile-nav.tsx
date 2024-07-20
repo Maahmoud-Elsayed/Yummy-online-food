@@ -278,7 +278,7 @@ const MobileNav = ({ categories }: { categories: Categories }) => {
               <div className="flex w-full flex-col gap-4 sm:flex-row">
                 <SheetTrigger asChild>
                   <Link
-                    href="/cart"
+                    href="/login"
                     className={buttonVariants({
                       className: "w-full",
                     })}
@@ -288,7 +288,7 @@ const MobileNav = ({ categories }: { categories: Categories }) => {
                 </SheetTrigger>
                 <SheetTrigger asChild>
                   <Link
-                    href="/cart"
+                    href="/register"
                     className={buttonVariants({
                       className: "w-full",
                     })}
