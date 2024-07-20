@@ -9,12 +9,12 @@ const GetApp = () => {
   const locale = useLocale() as Locale;
   return (
     <section>
-      <Container className=" mb-10 mt-20 flex flex-col items-center justify-center gap-8 px-5 md:mb-0 md:flex-row md:gap-20">
+      <Container className=" mb-10 mt-20 flex flex-col items-center justify-center gap-8  md:mb-0 md:flex-row md:gap-20">
         <MotionDiv
-          initial={{ opacity: 0, x: locale === "en" ? -50 : 50 }}
+          initial={{ opacity: 0, x: locale === "en" ? -100 : 100 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.5 }}
         >
           <Image
             src="/assets/images/iphone.png"
@@ -24,10 +24,10 @@ const GetApp = () => {
           />
         </MotionDiv>
         <MotionDiv
-          initial={{ opacity: 0, x: locale === "en" ? 50 : -50 }}
+          initial={{ opacity: 0, x: locale === "en" ? 100 : -100 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.5 }}
         >
           <h2 className="mb-2   text-start text-2xl font-medium text-foreground md:text-3xl md:font-semibold ">
             {t("title")}

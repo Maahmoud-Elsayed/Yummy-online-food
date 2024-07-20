@@ -323,7 +323,8 @@
     "error": {
       "title": "Something went wrong!",
       "description": "Oops! An unexpected error has occurred. Please click \" Try Again \" to attempt to fix the issue.",
-      "tryAgain": "Try Again"
+      "tryAgain": "Try Again",
+      "goToHome": "Back to homepage"
     },
     "denied": {
       "title": "Access Denied",

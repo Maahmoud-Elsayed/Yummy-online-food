@@ -47,8 +47,8 @@ const ResetPassword = async ({ searchParams }: ResetPasswordPageProps) => {
       );
     } catch (error) {
       content = (
-        <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-gray-100">
-          <div className="w-full max-w-md rounded-lg bg-white p-6 text-center shadow-lg">
+        <div className="flex min-h-[calc(100dvh-64px)] items-center justify-center bg-gray-100">
+          <div className="-mt-[64px] w-full max-w-md rounded-lg bg-white p-6 text-center shadow-lg">
             <h1 className="mb-4 text-2xl font-semibold text-red-600">
               {t("expired")}
             </h1>

@@ -31,8 +31,8 @@ export default function AccessDenied({
   setRequestLocale(locale);
   const t = useTranslations("pages.denied");
   return (
-    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-gray-100 px-2.5">
-      <Card className="space-y-4 rounded-lg bg-white p-8 text-center shadow-lg">
+    <div className="flex min-h-[calc(100dvh-64px)] items-center justify-center bg-gray-100 px-2.5">
+      <Card className="-mt-[64px] space-y-4 rounded-lg bg-white p-8 text-center shadow-lg">
         <IoIosLock className="mx-auto h-16 w-16 text-destructive" />
         <h1 className="text-3xl font-semibold text-destructive">
           {t("title")}

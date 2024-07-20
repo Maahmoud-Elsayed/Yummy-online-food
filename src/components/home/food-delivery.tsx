@@ -10,7 +10,7 @@ const FoodDelivery = () => {
   const locale = useLocale() as Locale;
   return (
     <section>
-      <Container className="mt-20 overflow-x-hidden">
+      <Container className="mt-20 ">
         <div className="mb-10">
           <h2 className="text-center text-2xl font-semibold text-foreground">
             {t("title")}
@@ -21,10 +21,10 @@ const FoodDelivery = () => {
         </div>
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           <MotionDiv
-            initial={{ opacity: 0, x: locale === "en" ? -50 : 50 }}
+            initial={{ opacity: 0, x: locale === "en" ? -100 : 100 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.5 }}
           >
             <div className="w-fill flex overflow-hidden rounded-md border border-gray-300">
               <div className="w-[35%] max-w-[200px] bg-[#ed613d]">
@@ -55,10 +55,10 @@ const FoodDelivery = () => {
             </div>
           </MotionDiv>
           <MotionDiv
-            initial={{ opacity: 0, x: locale === "en" ? 50 : -50 }}
+            initial={{ opacity: 0, x: locale === "en" ? 100 : -100 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.5 }}
           >
             <div className="w-fill flex overflow-hidden rounded-md border border-gray-300">
               <div className="w-[35%] max-w-[200px] bg-[#00b68d]">
@@ -89,10 +89,10 @@ const FoodDelivery = () => {
             </div>
           </MotionDiv>
           <MotionDiv
-            initial={{ opacity: 0, x: locale === "en" ? -50 : 50 }}
+            initial={{ opacity: 0, x: locale === "en" ? -100 : 100 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, amount: 0.5 }}
           >
             <div className="w-fill flex overflow-hidden rounded-md border border-gray-300">
               <div className="w-[35%] max-w-[200px] bg-[#FEFEFE]">

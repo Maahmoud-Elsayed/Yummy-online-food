@@ -50,8 +50,8 @@ export default async function AccessSuspended({
   const t = await getTranslations("pages.suspended");
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-gray-100">
-      <Card className="space-y-4 rounded-lg bg-white p-8 text-center shadow-lg">
+    <div className="flex min-h-[calc(100dvh-64px)] items-center justify-center bg-gray-100">
+      <Card className="-mt-[64px] space-y-4 rounded-lg bg-white p-8 text-center shadow-lg">
         <FaBan className="mx-auto h-16 w-16 text-destructive" />
         <h1 className="text-2xl font-semibold text-destructive">
           {t("title")}
