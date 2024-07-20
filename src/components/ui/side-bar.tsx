@@ -100,7 +100,7 @@ const SideBar = ({ menuItems, withCollapsed }: SideBarProps) => {
                 <MotionDiv
                   initial={{ opacity: 0, x: locale === "ar" ? 100 : -100 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, ease: "easeIn" }}
+                  transition={{ duration: 0.2, ease: "easeIn" }}
                   className="hidden w-full lg:block"
                 >
                   <MenuItem
@@ -119,7 +119,7 @@ const SideBar = ({ menuItems, withCollapsed }: SideBarProps) => {
                 <MotionDiv
                   initial={{ opacity: 0, x: locale === "ar" ? 100 : -100 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, ease: "easeIn" }}
+                  transition={{ duration: 0.2, ease: "easeIn" }}
                   className="relative flex flex-col items-center justify-center gap-2 px-4"
                 >
                   <div className="absolute left-0 top-2 z-10 h-[110px] w-full rounded-t-md bg-primary"></div>

@@ -1,9 +1,9 @@
 import { FaFilter, FaSort } from "react-icons/fa";
-import { Separator } from "../ui/separator";
-import CategoryFilter from "./filters/category-filter";
-import DiscountFilter from "./filters/discount-filter";
-import PriceFilter from "./filters/price-filter";
-import SortFilter from "./filters/sort-filter";
+import { Separator } from "../../ui/separator";
+import CategoryFilter from "./category-filter";
+import DiscountFilter from "./discount-filter";
+import PriceFilter from "./price-filter";
+import SortFilter from "./sort-filter";
 import { useTranslations } from "next-intl";
 
 const MobileFilter = () => {

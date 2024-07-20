@@ -51,8 +51,9 @@ export async function POST(req: Request) {
       }
 
       const { error } = await resend.emails.send({
-        from: "Acme <onboarding@resend.dev>",
-        to: [order.user?.email ?? order.customerEmail],
+        from: "Yummy <onboarding@resend.dev>",
+        // to: [order.user?.email ?? order.customerEmail],
+        to: "mahmoud.elsayed.elbadawy@gmail.com",
         subject: "Your order has been confirmed",
         react: ReceiptEmail({
           userName: order.user?.name ?? order.customerName,
@@ -86,8 +87,8 @@ export async function POST(req: Request) {
         ),
       );
     }
+    revalidatePath("/");
   }
-  revalidatePath("/");
 
   return new Response("Success", {
     status: 200,

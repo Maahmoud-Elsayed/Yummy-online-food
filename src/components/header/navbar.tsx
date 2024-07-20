@@ -16,10 +16,9 @@ const Navbar = async () => {
       initial={{ y: -65, opacity: 0 }}
       animate={{ y: 0, opacity: 100 }}
       transition={{ duration: 1, ease: "easeInOut" }}
-      className="sticky top-0 z-50 w-full border-b-2 border-border/80 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60"
     >
-      <header className="relative">
-        <Container>
+      <header className="sticky top-0 z-50 w-full border-b-2 border-border/80 bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60">
+        <Container className="relative">
           <div className="flex h-16 items-center justify-between ">
             <div className="flex gap-2">
               <MobileNav categories={categories} />
