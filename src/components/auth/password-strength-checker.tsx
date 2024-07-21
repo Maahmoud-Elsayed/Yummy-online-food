@@ -3,9 +3,11 @@ import { cn } from "@/lib/utils";
 import { FaCheckCircle } from "react-icons/fa";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const PasswordStrengthChecker = ({ password }: { password: string }) => {
   const [passwordScore, setPasswordScore] = useState(0);
+  const t = useTranslations("pages.register");
   const passwordStrenth = ["Too weak", "Weak", "Medium", "Strong", "Strong"];
 
   useEffect(() => {
@@ -65,7 +67,7 @@ const PasswordStrengthChecker = ({ password }: { password: string }) => {
             {passwordScore === 4 && (
               <FaCheckCircle className="inline h-4 w-4 fill-primary text-transparent  " />
             )}
-            {passwordStrenth[passwordScore - 1]}
+            {t(passwordStrenth[passwordScore - 1])}
           </span>
         </div>
       )}

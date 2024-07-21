@@ -116,7 +116,11 @@
       "confirm": "تأكيد كلمة المرور",
       "register": "انشاء حساب",
       "login": "تسجيل الدخول",
-      "signIn": "هل لديك حساب؟"
+      "signIn": "هل لديك حساب؟",
+      "Weak": "ضعيف",
+      "Medium": "متوسط",
+      "Strong": "قوي",
+      "Too weak": "ضعيف جدا"
     },
     "home": {
       "heroSection": {

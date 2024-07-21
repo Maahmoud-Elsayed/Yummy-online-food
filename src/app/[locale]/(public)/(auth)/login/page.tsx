@@ -26,7 +26,7 @@ const Login = ({ params: { locale } }: { params: { locale: string } }) => {
   setRequestLocale(locale);
   return (
     <Container className=" relative my-10 flex items-center justify-center   ">
-      <div className="flex w-full max-w-md overflow-hidden rounded-lg  p-5  lg:p-0">
+      <div className="flex w-full max-w-md overflow-hidden rounded-lg p-5 shadow-xl  lg:p-0">
         <LoginForm />
       </div>
     </Container>

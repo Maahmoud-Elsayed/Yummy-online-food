@@ -69,9 +69,9 @@ const LoginForm = ({ isModal }: LoginFormProps) => {
   };
 
   return (
-    <div className="  mx-auto h-full w-full  max-w-md text-gray-600 lg:p-5 lg:pb-5  ">
+    <div className="  mx-auto h-full w-full  max-w-md  lg:p-5 lg:pb-5 ">
       <div className="text-center">
-        <h3 className="my-8 text-2xl font-semibold text-foreground sm:text-3xl ">
+        <h3 className="my-5 text-2xl font-semibold text-foreground sm:text-3xl ">
           {t("title")}
         </h3>
 
@@ -116,7 +116,8 @@ const LoginForm = ({ isModal }: LoginFormProps) => {
               href="/reset-password"
               className={buttonVariants({
                 variant: "link",
-                className: "pr-0 !text-muted-foreground hover:!text-primary",
+                className:
+                  "pr-0 text-sm !text-muted-foreground hover:!text-primary",
               })}
             >
               {t("forgot")}
@@ -138,11 +139,11 @@ const LoginForm = ({ isModal }: LoginFormProps) => {
         isModal={isModal}
         callbackUrl={callbackUrl}
       />
-      <p className="mt-4 block text-center text-sm">
+      <p className="mt-4 block text-center text-xs">
         {t("create")}{" "}
         <Link
           href="/register"
-          className={buttonVariants({ className: "!p-0", variant: "link" })}
+          className={buttonVariants({ className: "!p-0.5", variant: "link" })}
         >
           {t("register")}
         </Link>

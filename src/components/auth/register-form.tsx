@@ -75,10 +75,10 @@ const RegisterForm = () => {
 
   return (
     <Container className=" relative my-10 flex items-center justify-center   ">
-      <div className="flex w-full max-w-md overflow-hidden rounded-lg p-5 lg:p-0">
-        <div className="  mx-auto h-full w-full max-w-md text-gray-600 lg:p-5 lg:pb-5  ">
+      <div className="flex w-full max-w-md overflow-hidden rounded-lg p-5 shadow-xl lg:p-0">
+        <div className="  mx-auto h-full w-full max-w-md  lg:p-5 lg:pb-5  ">
           <div className="text-center">
-            <h3 className="my-8 text-2xl font-semibold text-foreground sm:text-3xl ">
+            <h3 className="my-5 text-2xl font-semibold text-foreground sm:text-3xl ">
               {t("title")}
             </h3>
             {errors?.root?.serverError && (
@@ -129,16 +129,6 @@ const RegisterForm = () => {
                 )}
               />
 
-              {/* <PasswordFieldWithChecker
-                type="password"
-                id="password"
-                name="password"
-                register={register}
-                label={t("password")}
-                showPw
-                pwStrength
-                error={errors?.password?.message}
-              /> */}
               <FormField
                 control={form.control}
                 name="confirmPassword"
@@ -165,11 +155,14 @@ const RegisterForm = () => {
           </Form>
 
           <SocialLogin isSubmitting={isPending} />
-          <p className="mt-4 block text-center text-sm">
+          <p className="mt-4 block text-center text-xs">
             {t("signIn")}{" "}
             <Link
               href="/login"
-              className={buttonVariants({ className: "!p-0", variant: "link" })}
+              className={buttonVariants({
+                className: "!p-0.5",
+                variant: "link",
+              })}
             >
               {t("login")}
             </Link>

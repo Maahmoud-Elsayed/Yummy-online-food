@@ -1,6 +1,5 @@
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Button } from "../ui/button";
 
@@ -27,16 +26,16 @@ const SocialLogin = ({
     }
   };
 
-  const gitHubSignInHandler = async () => {
-    if (isModal) {
-      await signIn("github");
-    } else {
-      await signIn("github", {
-        redirect: true,
-        callbackUrl: callbackUrl ?? "/",
-      });
-    }
-  };
+  // const gitHubSignInHandler = async () => {
+  //   if (isModal) {
+  //     await signIn("github");
+  //   } else {
+  //     await signIn("github", {
+  //       redirect: true,
+  //       callbackUrl: callbackUrl ?? "/",
+  //     });
+  //   }
+  // };
 
   return (
     <>
@@ -48,7 +47,7 @@ const SocialLogin = ({
       </div>
       <div className="space-y-4 text-sm font-medium">
         <Button
-          className="flex w-full items-center gap-3"
+          className="flex w-full items-center gap-3 shadow-md"
           variant="outline"
           onClick={googleSignInHandler}
           disabled={isSubmitting}
@@ -56,7 +55,7 @@ const SocialLogin = ({
           <FcGoogle className="h-5 w-5" />
           <span className="rtl:pt-0.5">{t("google")}</span>
         </Button>
-        <Button
+        {/* <Button
           className="flex w-full items-center gap-3"
           variant="outline"
           onClick={gitHubSignInHandler}
@@ -64,7 +63,7 @@ const SocialLogin = ({
         >
           <FaGithub className="h-5 w-5 text-gray-900" />
           <span className="rtl:pt-0.5">{t("gitHub")}</span>
-        </Button>
+        </Button> */}
       </div>
     </>
   );

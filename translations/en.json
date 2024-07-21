@@ -114,7 +114,11 @@
       "confirm": "Confirm password",
       "register": "Sign up",
       "login": "Sign in",
-      "signIn": "Already have an account?"
+      "signIn": "Already have an account?",
+      "Weak": "Weak",
+      "Medium": "Medium",
+      "Strong": "Strong",
+      "Too weak": "Too weak"
     },
     "home": {
       "heroSection": {
