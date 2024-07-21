@@ -22,6 +22,7 @@ import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
 import { toast } from "sonner";
 import { useShallow } from "zustand/react/shallow";
 import { useCartStore } from "../../providers/cart-store-provider";
@@ -29,7 +30,6 @@ import LoadingSpinner from "../loading/loading-spinner";
 import { Badge } from "../ui/badge";
 import LoadingButton from "../ui/loading-button";
 import CartItem from "./cart-Item";
-import { useMediaQuery } from "react-responsive";
 
 const Cart = () => {
   const { status } = useSession();
@@ -52,12 +52,16 @@ const Cart = () => {
   const updateCartWithProducts = useCartStore(
     (state) => state.updateCartWithProducts,
   );
-
-  const { data: productsWithIds, isSuccess: isProductWithIdsSuccess } =
-    api.products.getProductsWithIds.useQuery(storedProductsIds, {
-      enabled: storedProductsIds.length > 0,
-      staleTime: Infinity,
-    });
+  const storeChanged = useCartStore(useShallow((state) => state.changed));
+  const { mutate } = api.products.getProductsWithIds.useMutation({
+    onSuccess: (data) => {
+      if (data.length > 0) {
+        updateCartWithProducts(data);
+      } else {
+        clearStoredCart();
+      }
+    },
+  });
 
   const { mutate: createCheckoutSession, isPending: isCheckoutLoading } =
     api.checkout.createCheckoutSession.useMutation({
@@ -85,6 +89,26 @@ const Cart = () => {
     staleTime: Infinity,
   });
 
+  useEffect(() => {
+    if (storedProductsIds.length > 0) {
+      mutate(storedProductsIds);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (status === "authenticated" && isSuccess && storeChanged) {
+      if (storeItems.length > 0 && (!cart || cart.items.length === 0)) {
+        updateCart(
+          storeItems.map((item) => ({
+            additions: item.additions ?? [],
+            quantity: item.quantity,
+            productId: item.productId,
+            size: item.size,
+          })),
+        );
+      }
+    }
+  }, [status, isSuccess]);
   const checkoutHandler = () => {
     if (status === "authenticated") {
       createCheckoutSession();
@@ -92,33 +116,6 @@ const Cart = () => {
       router.push("/login");
     }
   };
-
-  useEffect(() => {
-    if (isProductWithIdsSuccess) {
-      if (productsWithIds.length > 0) {
-        updateCartWithProducts(productsWithIds);
-      } else {
-        clearStoredCart();
-      }
-    }
-  }, [isProductWithIdsSuccess]);
-
-  useEffect(() => {
-    if (status === "authenticated" && isSuccess && isProductWithIdsSuccess) {
-      if (storeItems.length > 0) {
-        if (!cart || cart.items.length === 0) {
-          updateCart(
-            storeItems.map((item) => ({
-              additions: item.additions ?? [],
-              quantity: item.quantity,
-              productId: item.productId,
-              size: item.size,
-            })),
-          );
-        }
-      }
-    }
-  }, [status, isSuccess, isProductWithIdsSuccess]);
 
   const items = status === "authenticated" ? cart?.items : storeItems;
   const totalPrice =
@@ -135,15 +132,21 @@ const Cart = () => {
         : storeTotalQuantity ?? 0;
 
   useEffect(() => {
-    animate(
-      ".pump",
-      { scale: [null, 0.8, 1.1, 1.3, 1] },
-      {
-        ease: "easeOut",
-        duration: 0.3,
-      },
-    );
-  }, [totalQuantity]);
+    if (
+      totalQuantity > 0 &&
+      (status === "authenticated" ||
+        (status === "unauthenticated" && storeChanged))
+    ) {
+      animate(
+        ".pump",
+        { scale: [null, 0.8, 1.1, 1.3, 1] },
+        {
+          ease: "easeOut",
+          duration: 0.3,
+        },
+      );
+    }
+  }, [totalQuantity, storeChanged, status]);
 
   const fee = 5;
 
@@ -162,6 +165,7 @@ const Cart = () => {
         </div>
       </SheetTrigger>
       <SheetContent
+        aria-describedby={undefined}
         className="flex  w-full flex-col pr-0 sm:max-w-lg"
         side={isMobile && locale === "ar" ? "left" : "right"}
       >

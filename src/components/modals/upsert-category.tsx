@@ -10,6 +10,12 @@ import {
 } from "@/components/ui/dialog";
 
 import { useUploadThing } from "@/lib/uploadFiles";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 
 import {
   Form,
@@ -31,13 +37,13 @@ import UploadButton from "@/components/ui/upload-button";
 import { upsertCategoryClientSchema } from "@/lib/validations-schema/category-schema";
 
 import LoadingButton from "@/components/ui/loading-button";
+import { useRouter } from "@/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FaPencil } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
-import { useRouter } from "@/navigation";
 
 type FormData = z.infer<ReturnType<typeof upsertCategoryClientSchema>>;
 
@@ -143,12 +149,23 @@ export default function UpsertCategory({ category }: UpsertCategoryProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {category?.id ? (
-          <Button size="icon" variant="default">
-            <FaPencil />
-          </Button>
-        ) : (
+      {category?.id ? (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DialogTrigger asChild>
+                <Button size={"icon"} variant={"default"}>
+                  <FaPencil />
+                </Button>
+              </DialogTrigger>
+            </TooltipTrigger>
+            <TooltipContent className="bg-black text-white">
+              <p>{t("edit")}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ) : (
+        <DialogTrigger asChild>
           <Button
             variant="outline"
             className=" h-full w-full max-w-[150px] rounded-xl border border-dashed border-gray-300 md:max-w-full"
@@ -158,9 +175,9 @@ export default function UpsertCategory({ category }: UpsertCategoryProps) {
               <span className="mb-2">{t("addCategory")}</span>
             </div>
           </Button>
-        )}
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-lg">
+        </DialogTrigger>
+      )}
+      <DialogContent aria-describedby={undefined} className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>
         </DialogHeader>

@@ -120,6 +120,7 @@ const MobileNav = ({ categories }: { categories: Categories }) => {
         />
       </SheetTrigger>
       <SheetContent
+        aria-describedby={undefined}
         side={isMobile && locale === "ar" ? "right" : "left"}
         className="flex  max-h-screen w-full flex-col overflow-y-auto pr-0 sm:max-w-lg"
       >

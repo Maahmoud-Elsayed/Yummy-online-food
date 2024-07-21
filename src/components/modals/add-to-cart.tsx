@@ -177,7 +177,7 @@ const AddToCart = ({ product }: AddSelectionFormProps) => {
           </div>
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-3xl p-0">
+      <DialogContent aria-describedby={undefined} className="max-w-3xl p-0">
         <DialogHeader>
           <DialogTitle className="w-full bg-gray-100 px-4 py-4 font-normal">
             {t("title")}

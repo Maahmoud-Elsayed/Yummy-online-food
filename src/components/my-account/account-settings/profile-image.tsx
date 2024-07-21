@@ -93,7 +93,10 @@ const ProfileImage = (props: UploadButtonProps) => {
             )}
           </button>
         </DialogTrigger>
-        <DialogContent className="flex aspect-square w-full max-w-sm items-center justify-center p-0">
+        <DialogContent
+          aria-describedby={undefined}
+          className="flex aspect-square w-full max-w-sm items-center justify-center p-0"
+        >
           {img && !deleteImg && (
             <div className="relative h-full w-full overflow-hidden rounded-lg">
               <Image src={img} alt="profile" fill />

@@ -6,7 +6,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
 import { type Locale } from "@/navigation";
 import { api } from "@/trpc/react";
 import { useLocale, useTranslations } from "next-intl";
@@ -14,9 +13,8 @@ import Image from "next/image";
 import { FaBookOpen } from "react-icons/fa6";
 import { MdFastfood } from "react-icons/md";
 import DeleteItem from "../../modals/delete-item";
-import UpdateCategory from "../../modals/upsert-category";
-import SummaryCard from "../summary/summary-card";
 import UpsertCategory from "../../modals/upsert-category";
+import SummaryCard from "../summary/summary-card";
 
 const CategoriesList = () => {
   const t = useTranslations("dashboard.categories");
@@ -63,12 +61,8 @@ const CategoriesList = () => {
                   </AccordionTrigger>
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                  <TooltipWrapper text={t("edit")}>
-                    <UpdateCategory category={category} />
-                  </TooltipWrapper>
-                  <TooltipWrapper text={t("delete")}>
-                    <DeleteItem id={category.id} type="categories" />
-                  </TooltipWrapper>
+                  <UpsertCategory category={category} />
+                  <DeleteItem id={category.id} type="categories" />
                 </div>
               </div>
               <AccordionContent className="rounded-lg bg-white p-4">

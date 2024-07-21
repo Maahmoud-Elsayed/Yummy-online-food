@@ -25,6 +25,7 @@ export type CartState = {
   items: Item[];
   totalPrice: number;
   totalQuantity: number;
+  changed: boolean;
 };
 
 type CartActions = {
@@ -43,6 +44,7 @@ export const initialState: CartState = {
   items: [],
   totalPrice: 0,
   totalQuantity: 0,
+  changed: false,
 };
 
 export const createCartStore = (initState: CartState = initialState) => {
@@ -69,10 +71,6 @@ export const createCartStore = (initState: CartState = initialState) => {
                       ),
                   );
 
-                  const sizeDetail = product.sizes.find(
-                    (s) => s.size === item.size,
-                  );
-
                   let price = product.finalPrice ?? 0;
                   let size = "None";
                   let additions: string[] = [];
@@ -86,16 +84,13 @@ export const createCartStore = (initState: CartState = initialState) => {
 
                   if (product.sizes && product.sizes.length > 0) {
                     const selectedSize = product.sizes.find(
-                      (size) => size.size === sizeDetail?.size,
+                      (size) => size.size === item.size,
                     );
                     if (selectedSize) {
-                      price =
-                        selectedSize.price -
-                        selectedSize.price * (product.discount / 100);
+                      size = selectedSize.size;
+                      price = selectedSize.finalPrice;
                     } else {
-                      price =
-                        product.sizes[0]?.price! -
-                        product.sizes[0]?.price! * (product.discount / 100);
+                      price = product.sizes[0]?.finalPrice!;
                       size = product.sizes[0]?.size as
                         | "Small"
                         | "Medium"
@@ -153,7 +148,8 @@ export const createCartStore = (initState: CartState = initialState) => {
         },
         getAllProductIds: () => {
           const state = get();
-          return state.items.map((item) => item.productId);
+          const productIds = new Set(state.items.map((item) => item.productId));
+          return Array.from(productIds);
         },
         addItem: (newItem) => {
           set((state) => {
@@ -181,6 +177,7 @@ export const createCartStore = (initState: CartState = initialState) => {
                 items: updatedItems,
                 totalPrice: state.totalPrice + totalPrice,
                 totalQuantity: state.totalQuantity + quantity,
+                changed: true,
               };
             } else {
               return {
@@ -190,6 +187,7 @@ export const createCartStore = (initState: CartState = initialState) => {
                 ],
                 totalPrice: state.totalPrice + totalPrice,
                 totalQuantity: state.totalQuantity + quantity,
+                changed: true,
               };
             }
           });
@@ -214,6 +212,7 @@ export const createCartStore = (initState: CartState = initialState) => {
                 items: updatedItems,
                 totalPrice: state.totalPrice - itemToRemove.price,
                 totalQuantity: state.totalQuantity - 1,
+                changed: true,
               };
             } else {
               const updatedItems = state.items.filter((item) => item.id !== id);
@@ -221,6 +220,7 @@ export const createCartStore = (initState: CartState = initialState) => {
                 items: updatedItems,
                 totalPrice: state.totalPrice - itemToRemove.totalPrice,
                 totalQuantity: state.totalQuantity - itemToRemove.quantity,
+                changed: true,
               };
             }
           });
@@ -242,6 +242,7 @@ export const createCartStore = (initState: CartState = initialState) => {
               items: updatedItems,
               totalPrice: state.totalPrice + itemToIncrease.price,
               totalQuantity: state.totalQuantity + 1,
+              changed: true,
             };
           });
         },
@@ -255,6 +256,7 @@ export const createCartStore = (initState: CartState = initialState) => {
               items: updatedItems,
               totalPrice: state.totalPrice - itemToRemove.totalPrice,
               totalQuantity: state.totalQuantity - itemToRemove.quantity,
+              changed: true,
             };
           });
         },
@@ -262,6 +264,11 @@ export const createCartStore = (initState: CartState = initialState) => {
       {
         name: "cart",
         storage: createJSONStorage(() => localStorage),
+        partialize: (state) => ({
+          items: state.items,
+          totalPrice: state.totalPrice,
+          totalQuantity: state.totalQuantity,
+        }),
       },
     ),
   );

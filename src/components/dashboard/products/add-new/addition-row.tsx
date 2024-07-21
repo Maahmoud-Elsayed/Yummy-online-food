@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TableCell, TableRow } from "@/components/ui/table";
+import { TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipWrapper } from "@/components/ui/tooltip-wrapper";
 import { useTranslations } from "next-intl";
 import { useFormContext } from "react-hook-form";
@@ -59,15 +60,17 @@ const AdditionRow = ({ index, handleRemoveAddition }: AdditionRowProps) => {
 
         <TableCell>
           <TooltipWrapper text="Remove">
-            <Button
-              size={"icon"}
-              variant={"destructive"}
-              type="button"
-              onClick={() => handleRemoveAddition(index)}
-              className="self-end"
-            >
-              <FaTrash />
-            </Button>
+            <TooltipTrigger asChild>
+              <Button
+                size={"icon"}
+                variant={"destructive"}
+                type="button"
+                onClick={() => handleRemoveAddition(index)}
+                className="self-end"
+              >
+                <FaTrash />
+              </Button>
+            </TooltipTrigger>
           </TooltipWrapper>
         </TableCell>
       </TableRow>

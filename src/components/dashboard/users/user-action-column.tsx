@@ -178,7 +178,10 @@ const UserActionColumn = ({ user }: UserActionColumnProps) => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <DialogContent className="flex aspect-square w-full max-w-sm items-center justify-center p-0">
+        <DialogContent
+          aria-describedby={undefined}
+          className="flex aspect-square w-full max-w-sm items-center justify-center p-0"
+        >
           <div className="relative h-full w-full overflow-hidden rounded-lg ">
             <Image src={user.image} alt={user.name} fill />
           </div>

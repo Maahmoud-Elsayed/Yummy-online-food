@@ -2,26 +2,19 @@ import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
-  TooltipTrigger,
 } from "@/components/ui/tooltip";
 
 type TooltipWrapperProps = {
   children: React.ReactNode;
   text: string;
   side?: "top" | "bottom" | "left" | "right";
-  asChild?: boolean;
 };
 
-export function TooltipWrapper({
-  children,
-  text,
-  side,
-  asChild,
-}: TooltipWrapperProps) {
+export function TooltipWrapper({ children, text, side }: TooltipWrapperProps) {
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger asChild={asChild ?? false}>{children}</TooltipTrigger>
+        {children}
         <TooltipContent
           className="bg-black text-white"
           side={side ? side : "top"}

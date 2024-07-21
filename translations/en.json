@@ -389,6 +389,7 @@
           "nameAr": "Name (Arabic)",
           "save": "Create",
           "uploadImg": "Choose Image",
+          "edit": "Edit",
           "toast": {
             "loading": "Creating category...",
             "success": "Category created successfully",
@@ -401,6 +402,7 @@
           "nameAr": "Name (Arabic)",
           "uploadImg": "Choose Image",
           "save": "Save Changes",
+          "edit": "Edit",
           "toast": {
             "loading": "Updating category...",
             "success": "Category updated successfully",

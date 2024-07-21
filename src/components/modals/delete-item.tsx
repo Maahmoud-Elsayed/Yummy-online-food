@@ -17,6 +17,12 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { toast } from "sonner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 
 type DeleteCategoryProps = {
   id: string | null;
@@ -63,12 +69,23 @@ const DeleteItem = ({ id, type }: DeleteCategoryProps) => {
   };
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {type === "categories" ? (
-          <Button size="icon" variant="destructive">
-            <FaTrash />
-          </Button>
-        ) : (
+      {type === "categories" ? (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DialogTrigger asChild>
+                <Button size="icon" variant="destructive">
+                  <FaTrash />
+                </Button>
+              </DialogTrigger>
+            </TooltipTrigger>
+            <TooltipContent className="bg-black text-white">
+              <p>{t("delete")}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ) : (
+        <DialogTrigger asChild>
           <LoadingButton
             variant="destructive"
             size={"sm"}
@@ -77,8 +94,9 @@ const DeleteItem = ({ id, type }: DeleteCategoryProps) => {
           >
             {t("delete")}
           </LoadingButton>
-        )}
-      </DialogTrigger>
+        </DialogTrigger>
+      )}
+
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>

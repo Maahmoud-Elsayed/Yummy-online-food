@@ -300,7 +300,7 @@ export const productsRouter = createTRPCRouter({
     }),
   getProductsWithIds: publicProcedure
     .input(z.array(z.string()))
-    .query(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
       try {
         const products = await ctx.db.product.findMany({
           where: {

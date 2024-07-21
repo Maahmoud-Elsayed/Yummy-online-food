@@ -17,7 +17,10 @@ const LoginFormModal = ({ open, setOpen }: LoginFormModalProps) => {
   }, [session]);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-lg overflow-auto">
+      <DialogContent
+        aria-describedby={undefined}
+        className="max-w-lg overflow-auto"
+      >
         <div className=" py-4">
           <LoginForm isModal={true} />
         </div>

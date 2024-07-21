@@ -9,8 +9,8 @@ const AuthChecker = () => {
   const { data: user, isSuccess } = api.auth.authChecker.useQuery(undefined, {
     enabled: status === "authenticated",
     staleTime: Infinity,
+    refetchOnWindowFocus: false,
   });
-  // const userJson = JSON.stringify(user) || "{}";
   useEffect(() => {
     if (status === "authenticated" && isSuccess) {
       if (!user) {

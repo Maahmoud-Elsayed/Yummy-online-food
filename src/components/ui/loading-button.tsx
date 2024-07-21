@@ -1,3 +1,4 @@
+import React, { forwardRef } from "react";
 import { cn } from "@/lib/utils";
 import { ImSpinner9 } from "react-icons/im";
 import { Button, type ButtonProps } from "./button";
@@ -10,32 +11,31 @@ interface LoadingButtonProps extends ButtonProps {
   className?: string;
 }
 
-const LoadingButton: React.FC<LoadingButtonProps> = ({
-  className,
-  isLoading = false,
-  children,
-  loadingText,
-  ...props
-}) => {
-  const t = useTranslations("ui");
-  return (
-    <Button
-      className={cn(
-        " flex items-center gap-2 disabled:pointer-events-auto disabled:cursor-not-allowed",
-        className,
-      )}
-      {...props}
-    >
-      {isLoading ? (
-        <>
-          <ImSpinner9 className="h-4 w-4 animate-spin" />
-          <span>{loadingText ?? t("wait")}</span>
-        </>
-      ) : (
-        children
-      )}
-    </Button>
-  );
-};
+const LoadingButton = forwardRef<HTMLButtonElement, LoadingButtonProps>(
+  ({ className, isLoading = false, children, loadingText, ...props }, ref) => {
+    const t = useTranslations("ui");
+    return (
+      <Button
+        ref={ref}
+        className={cn(
+          "flex items-center gap-2 disabled:pointer-events-auto disabled:cursor-not-allowed",
+          className,
+        )}
+        {...props}
+      >
+        {isLoading ? (
+          <>
+            <ImSpinner9 className="h-4 w-4 animate-spin" />
+            <span>{loadingText ?? t("wait")}</span>
+          </>
+        ) : (
+          children
+        )}
+      </Button>
+    );
+  },
+);
+
+LoadingButton.displayName = "LoadingButton"; // Set a display name for easier debugging
 
 export default LoadingButton;

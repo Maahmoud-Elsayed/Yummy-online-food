@@ -179,7 +179,7 @@ const CartItem = ({ item }: CartItemProps) => {
   return (
     <div className="flex justify-between gap-4 py-2 ">
       <div className="relative aspect-square h-[70px] w-[70px]  overflow-hidden rounded">
-        <Image src={image} alt={name_en} fill className="object-cover" />
+        <Image src={image} alt={name_en} fill className="object-fill" />
       </div>
       <div className="flex grow flex-col justify-between ">
         <div className="flex justify-between gap-4">
@@ -189,11 +189,11 @@ const CartItem = ({ item }: CartItemProps) => {
             </span>
             {size || additions ? (
               <div className="flex items-center gap-1.5 ">
-                {size && size !== "None" && (
+                {size && size !== "None" ? (
                   <span className=" text-xs text-muted-foreground">
                     {t(`${size}`)}
                   </span>
-                )}
+                ) : null}
                 {additions && additions.length > 0 && (
                   <HoverCard>
                     <HoverCardTrigger>

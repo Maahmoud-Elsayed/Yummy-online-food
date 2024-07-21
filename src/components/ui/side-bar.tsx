@@ -17,6 +17,7 @@ import { Separator } from "./separator";
 import { TooltipWrapper } from "./tooltip-wrapper";
 import { useLocale, useTranslations } from "next-intl";
 import { useMediaQuery } from "react-responsive";
+import { TooltipTrigger } from "./tooltip";
 
 type MenuItem = {
   label: string;
@@ -87,13 +88,15 @@ const SideBar = ({ menuItems, withCollapsed }: SideBarProps) => {
                 text={locale === "ar" ? "اظهار" : "Open"}
                 side={locale === "ar" ? "left" : "right"}
               >
-                <MenuItem
-                  className="hidden lg:block"
-                  onClick={() => setCollapsed(!collapsed)}
-                  icon={
-                    <LuArrowRightToLine className="h-5 w-5 rtl:rotate-180 " />
-                  }
-                ></MenuItem>
+                <TooltipTrigger asChild>
+                  <MenuItem
+                    className="hidden lg:block"
+                    onClick={() => setCollapsed(!collapsed)}
+                    icon={
+                      <LuArrowRightToLine className="h-5 w-5 rtl:rotate-180 " />
+                    }
+                  ></MenuItem>
+                </TooltipTrigger>
               </TooltipWrapper>
             ) : (
               <>
@@ -164,36 +167,37 @@ const SideBar = ({ menuItems, withCollapsed }: SideBarProps) => {
                     key={index}
                     text={item.label}
                     side={locale === "ar" ? "left" : "right"}
-                    asChild
                   >
-                    <SubMenu
-                      label={item.label}
-                      icon={item.icon}
-                      active={item.subMenu.some(
-                        (subItem) =>
-                          path === subItem.path && searchParams === 0,
-                      )}
-                    >
-                      {item.subMenu.map((subItem) => (
-                        <MenuItem
-                          key={subItem.label}
-                          active={path === subItem.path && searchParams === 0}
-                          component={
-                            <CustomLink
-                              path={path}
-                              href={subItem.path}
-                              collapsed={collapsed}
-                              text={subItem.label}
-                              locale={locale}
-                            />
-                          }
-                          icon={subItem.icon}
-                          // className="relative z-20 text-inherit"
-                        >
-                          {subItem.label}
-                        </MenuItem>
-                      ))}
-                    </SubMenu>
+                    <TooltipTrigger asChild>
+                      <SubMenu
+                        label={item.label}
+                        icon={item.icon}
+                        active={item.subMenu.some(
+                          (subItem) =>
+                            path === subItem.path && searchParams === 0,
+                        )}
+                      >
+                        {item.subMenu.map((subItem) => (
+                          <MenuItem
+                            key={subItem.label}
+                            active={path === subItem.path && searchParams === 0}
+                            component={
+                              <CustomLink
+                                path={path}
+                                href={subItem.path}
+                                collapsed={collapsed}
+                                text={subItem.label}
+                                locale={locale}
+                              />
+                            }
+                            icon={subItem.icon}
+                            // className="relative z-20 text-inherit"
+                          >
+                            {subItem.label}
+                          </MenuItem>
+                        ))}
+                      </SubMenu>
+                    </TooltipTrigger>
                   </TooltipWrapper>
                 );
               }
@@ -274,29 +278,27 @@ const CustomLink = ({
 }) => {
   if (collapsed) {
     return (
-      <TooltipWrapper
-        text={text}
-        side={locale === "ar" ? "left" : "right"}
-        asChild
-      >
-        <Link href={href as any} className={cn("relative w-full", className)}>
-          <div
-            className={cn(
-              "relative z-50 flex items-center",
-              path === href ? "text-primary-foreground" : "text-foreground",
-            )}
-          >
-            {children}
-          </div>
+      <TooltipWrapper text={text} side={locale === "ar" ? "left" : "right"}>
+        <TooltipTrigger asChild>
+          <Link href={href as any} className={cn("relative w-full", className)}>
+            <div
+              className={cn(
+                "relative z-50 flex items-center",
+                path === href ? "text-primary-foreground" : "text-foreground",
+              )}
+            >
+              {children}
+            </div>
 
-          {href === path && (
-            <MotionDiv
-              layout
-              layoutId="underline"
-              className=" absolute inset-0 z-10 rounded bg-primary"
-            />
-          )}
-        </Link>
+            {href === path && (
+              <MotionDiv
+                layout
+                layoutId="underline"
+                className=" absolute inset-0 z-10 rounded bg-primary"
+              />
+            )}
+          </Link>
+        </TooltipTrigger>
       </TooltipWrapper>
     );
   }

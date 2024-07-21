@@ -121,7 +121,7 @@ const ProductAddButton = ({ product }: AddButtonProps) => {
     },
   });
   const { status } = useSession();
-  const { addItem } = useCartStore((state) => state);
+  const addItem = useCartStore((state) => state.addItem);
   const addItemHandler = () => {
     if (product.additions?.length === 0 && product.sizes?.length === 0) {
       if (status === "authenticated") {
@@ -188,7 +188,7 @@ const ProductAddButton = ({ product }: AddButtonProps) => {
           image: product.image,
           price: price,
           quantity: qty,
-          size: size as "Small" | "Medium" | "Large" | "None",
+          size: size as "Small" | "Medium" | "Large" ?? "None",
           additions: additions,
           additions_en,
           additions_ar,
