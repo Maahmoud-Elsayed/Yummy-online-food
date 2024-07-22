@@ -123,9 +123,9 @@ export default async function RootLayout({
           <AuthProvider session={session}>
             <NextIntlClientProvider messages={messages}>
               <CartStoreProvider>
-                <div className="relative min-h-screen w-full flex-1 flex-grow overflow-x-hidden">
+                <div className="relative min-h-screen w-full flex-1 flex-grow ">
                   <Navbar />
-                  <main>{children}</main>
+                  <main className="overflow-x-hidden">{children}</main>
                   <ScrollToTop />
                 </div>
 

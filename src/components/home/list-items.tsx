@@ -19,7 +19,7 @@ const ListItems = ({ products, type }: ListItemsProps) => {
   const t = useTranslations("pages.home.productsSection");
   const locale = useLocale();
   return (
-    <div className=" w-full px-12 lg:px-0">
+    <div className=" w-full pb-12 sm:px-12 sm:pb-0 lg:px-0">
       {products.length > 0 ? (
         <Carousel
           className="w-full"
@@ -62,15 +62,15 @@ const ListItems = ({ products, type }: ListItemsProps) => {
                   <h3 className="text-xl font-semibold text-foreground">
                     {t(`card.${type ? type : "sales"}`)}
                   </h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
+                  <p className="mt-2 text-center text-sm text-muted-foreground">
                     {t(`card.${type ? type : "sales"}Description`)}
                   </p>
                 </Card>
               </Link>
             </CarouselItem>
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className=" -bottom-12 left-[calc(50%-3rem)] top-auto -translate-x-1/2 translate-y-0 sm:-left-12 sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0" />
+          <CarouselNext className=" -bottom-12 right-[calc(50%-3rem)] top-auto translate-x-1/2 translate-y-0 sm:-right-12 sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0" />
         </Carousel>
       ) : (
         <div className="flex h-full w-full items-center justify-center">

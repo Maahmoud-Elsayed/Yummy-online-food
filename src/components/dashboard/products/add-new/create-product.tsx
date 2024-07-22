@@ -112,7 +112,10 @@ function CreateForm({ product }: CreateFormProps) {
   const t = useTranslations("dashboard.addProduct");
   const tZod = useTranslations("zod");
 
-  const { data: categoryNames } = api.categories.getAllNames.useQuery();
+  const { data: categoryNames } = api.categories.getAllNames.useQuery(
+    undefined,
+    { staleTime: Infinity, refetchOnWindowFocus: false },
+  );
 
   const { mutateAsync, isPending } =
     api.dashboard.products.createOrUpdateProduct.useMutation({
