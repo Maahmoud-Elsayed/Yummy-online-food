@@ -10,7 +10,9 @@ import SuperJSON from "superjson";
 import { type AppRouter } from "@/server/api/root";
 
 const createQueryClient = () =>
-  new QueryClient({ defaultOptions: { queries: { staleTime: 60 * 1000 } } });
+  new QueryClient({
+    defaultOptions: { queries: { staleTime: 2 * 60 * 1000 } },
+  });
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
 const getQueryClient = () => {

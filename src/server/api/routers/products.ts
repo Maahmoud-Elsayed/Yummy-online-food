@@ -43,6 +43,7 @@ export const productsRouter = createTRPCRouter({
             orderBy = { avgRate: "desc" };
             break;
           default:
+            orderBy = { createdAt: "desc" }; // Default sorting
             break;
         }
 
@@ -63,7 +64,7 @@ export const productsRouter = createTRPCRouter({
           }
 
           if (filter.category) {
-            const categories = filter.category.split("-");
+            const categories = filter.category.split("_");
             where.OR = [
               {
                 category: {
@@ -88,30 +89,59 @@ export const productsRouter = createTRPCRouter({
             };
           }
           if (filter.search) {
-            const fullText = filter.search.trim().split(/\s+/).join(" | ");
+            // const fullText = filter.search.trim().split(/\s+/).join(" & ");
             const searchWords = filter.search.trim().split(/\s+/);
-            where.OR = [
-              ...(where.OR ?? []),
-              {
-                name_ar: {
-                  search: fullText,
-                },
+            // where.OR = [
+            //   ...(where.OR ?? []),
+            //   {
+            //     name_ar: {
+            //       search: fullText,
+            //     },
+            //   },
+            //   {
+            //     name_en: {
+            //       search: fullText,
+            //     },
+            //   },
+            // ...searchWords.map((word) => ({
+            //   name_ar: {
+            //     contains: word,
+            //     mode: "insensitive",
+            //   },
+            // })),
+            // ...searchWords.map((word) => ({
+            //   name_en: {
+            //     contains: word,
+            //     mode: "insensitive",
+            //   },
+            // })),
+            // ];
+            const nameEnMatches = searchWords.map((word) => ({
+              name_en: {
+                contains: word,
+                mode: "insensitive",
               },
-              {
-                name_en: {
-                  search: fullText,
-                },
+            }));
+
+            const nameArMatches = searchWords.map((word) => ({
+              name_ar: {
+                contains: word,
+                mode: "insensitive",
               },
-              ...searchWords.map((word) => ({
-                name_ar: {
-                  contains: word,
-                },
-              })),
-              ...searchWords.map((word) => ({
-                name_en: {
-                  contains: word,
-                },
-              })),
+            }));
+
+            // Combine the AND conditions with OR
+            where.AND = [
+              {
+                OR: [
+                  {
+                    AND: nameEnMatches,
+                  },
+                  {
+                    AND: nameArMatches,
+                  },
+                ],
+              },
             ];
           }
         }
