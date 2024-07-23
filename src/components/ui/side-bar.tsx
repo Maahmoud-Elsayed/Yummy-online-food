@@ -53,7 +53,7 @@ const SideBar = ({ menuItems, withCollapsed }: SideBarProps) => {
   }, [lgScreen]);
 
   return (
-    <div className="sticky top-[66px] z-40 h-[calc(100vh-65px)] overflow-y-auto">
+    <div className="sticky top-[66px] z-40 h-[calc(100vh-65px)]">
       <Sidebar
         collapsed={collapsed}
         className="relative hidden h-full md:block"
@@ -63,6 +63,7 @@ const SideBar = ({ menuItems, withCollapsed }: SideBarProps) => {
         breakPoint="md"
       >
         <Menu
+          style={{ paddingInline: "0.3rem" }}
           closeOnClick
           menuItemStyles={{
             button: ({ level, active, disabled, isSubmenu, open }) => {

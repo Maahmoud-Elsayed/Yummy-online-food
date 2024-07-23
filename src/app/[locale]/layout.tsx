@@ -125,7 +125,7 @@ export default async function RootLayout({
               <CartStoreProvider>
                 <div className="relative min-h-screen w-full flex-1 flex-grow ">
                   <Navbar />
-                  <main className="overflow-x-hidden">{children}</main>
+                  <main>{children}</main>
                   <ScrollToTop />
                 </div>
 
