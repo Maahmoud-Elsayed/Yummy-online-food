@@ -3,6 +3,7 @@
 import { AccordionContent, AccordionTrigger } from "@/components/ui/accordion";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { formatPrice } from "@/lib/utils";
 import { type Locale } from "@/navigation";
 import { type FeaturedProducts } from "@/server/api/routers/products";
 import { useLocale, useTranslations } from "next-intl";
@@ -54,9 +55,16 @@ const AdditionsSelect = ({ additions }: AdditionsSelectProps) => {
                       />
                       <Label
                         htmlFor={addition.id}
-                        className="cursor-pointer text-sm font-normal text-muted-foreground"
+                        className="flex cursor-pointer items-center gap-1 text-sm font-normal text-muted-foreground "
                       >
-                        {addition.name[locale]} ({addition.price.toFixed(2)})
+                        <span>{addition.name[locale]}</span>
+                        <span className="text-xs">
+                          (
+                          {formatPrice(addition.price, {
+                            currency: locale === "ar" ? "EGP" : "USD",
+                          })}
+                          )
+                        </span>
                       </Label>
                     </div>
                   );

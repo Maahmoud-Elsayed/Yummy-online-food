@@ -1,8 +1,9 @@
 "use client";
 import Price from "@/components/ui/price";
 import { formatPrice } from "@/lib/utils";
+import { type Locale } from "@/navigation";
 import { type Size } from "@prisma/client";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 
 type ProductPriceProps = {
@@ -17,6 +18,7 @@ type ProductPriceProps = {
 
 const ProductPrice = ({ sizes, additions, discount }: ProductPriceProps) => {
   const searchParams = useSearchParams();
+  const locale = useLocale() as Locale;
   const SizeParam = searchParams.get("size");
   const additionsParam = searchParams.get("additions");
   const t = useTranslations("pages.productDetails");
@@ -46,10 +48,15 @@ const ProductPrice = ({ sizes, additions, discount }: ProductPriceProps) => {
     <div className="flex gap-4">
       {price > 0 ? (
         <>
-          <Price price={finalPrice} />
+          <Price
+            price={finalPrice}
+            currency={locale === "ar" ? "EGP" : "USD"}
+          />
           {discount && discount > 0 ? (
             <del className="text-sm text-muted-foreground ">
-              {formatPrice(price)}
+              {formatPrice(price, {
+                currency: locale === "ar" ? "EGP" : "USD",
+              })}
             </del>
           ) : null}
         </>

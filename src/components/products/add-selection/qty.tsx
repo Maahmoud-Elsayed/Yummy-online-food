@@ -1,7 +1,8 @@
 "use client";
 import { formatPrice } from "@/lib/utils";
+import { type Locale } from "@/navigation";
 import { type FeaturedProducts } from "@/server/api/routers/products";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { FaMinus, FaPlus } from "react-icons/fa";
@@ -14,6 +15,7 @@ type QtyProps = {
 const Qty = ({ additions, sizes, defaultPrice }: QtyProps) => {
   const [qty, setQty] = useState(1);
   const [price, setPrice] = useState(0);
+  const locale = useLocale() as Locale;
 
   const t = useTranslations("pages.products.modals.addToCart");
 
@@ -75,7 +77,8 @@ const Qty = ({ additions, sizes, defaultPrice }: QtyProps) => {
       </div>
       {price ? (
         <p className="text-sm text-foreground">
-          {t("price")}: {formatPrice(price)}
+          {t("price")}:{" "}
+          {formatPrice(price, { currency: locale === "ar" ? "EGP" : "USD" })}
         </p>
       ) : (
         <p className="text-xs">{t("priceSelection")}</p>

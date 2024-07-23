@@ -201,15 +201,27 @@ const Cart = () => {
                 <div className="space-y-1.5 text-sm">
                   <div className="flex">
                     <span className="flex-1">{t("subtotal")}</span>
-                    <span>{formatPrice(totalPrice)}</span>
+                    <span>
+                      {formatPrice(totalPrice, {
+                        currency: locale === "ar" ? "EGP" : "USD",
+                      })}
+                    </span>
                   </div>
                   <div className="flex">
                     <span className="flex-1">{t("deliveryFee")}</span>
-                    <span>{formatPrice(fee)}</span>
+                    <span>
+                      {formatPrice(fee, {
+                        currency: locale === "ar" ? "EGP" : "USD",
+                      })}
+                    </span>
                   </div>
                   <div className="flex">
                     <span className="flex-1">{t("total")}</span>
-                    <span>{formatPrice(totalPrice + fee)}</span>
+                    <span>
+                      {formatPrice(totalPrice + fee, {
+                        currency: locale === "ar" ? "EGP" : "USD",
+                      })}
+                    </span>
                   </div>
                 </div>
 

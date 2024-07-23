@@ -178,7 +178,7 @@ const CartItem = ({ item }: CartItemProps) => {
   const removeAllItem = useCartStore((state) => state.removeAllItem);
   return (
     <div className="flex justify-between gap-4 py-2 ">
-      <div className="relative aspect-square h-[70px] w-[70px]  overflow-hidden rounded">
+      <div className="relative aspect-square h-[70px] w-[70px]  overflow-hidden rounded-md bg-[#f7f7f7]">
         <Image src={image} alt={name_en} fill className="object-fill" />
       </div>
       <div className="flex grow flex-col justify-between ">
@@ -220,11 +220,16 @@ const CartItem = ({ item }: CartItemProps) => {
           </div>
           <div className="flex flex-col items-end gap-1.5">
             <span className=" line-clamp-1 text-sm">
-              {formatPrice(totalPrice)}
+              {formatPrice(totalPrice, {
+                currency: locale === "ar" ? "EGP" : "USD",
+              })}
             </span>
             {quantity > 1 ? (
               <span className="text-xs text-muted-foreground">
-                {formatPrice(price)} {t("each")}
+                {formatPrice(price, {
+                  currency: locale === "ar" ? "EGP" : "USD",
+                })}{" "}
+                {t("each")}
               </span>
             ) : null}
           </div>

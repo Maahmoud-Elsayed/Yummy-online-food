@@ -8,13 +8,16 @@ import { FaCheckCircle } from "react-icons/fa";
 import { IoIosAlert } from "react-icons/io";
 
 import { type FeaturedProducts } from "@/server/api/routers/products";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { formatPrice } from "@/lib/utils";
+import { type Locale } from "@/navigation";
 
 type SizeSelectProps = {
   sizes: FeaturedProducts[number]["sizes"];
 };
 const SizeSelect = ({ sizes }: SizeSelectProps) => {
   const t = useTranslations("pages.products.modals.addToCart");
+  const locale = useLocale() as Locale;
   const {
     control,
     formState: { errors },
@@ -69,9 +72,16 @@ const SizeSelect = ({ sizes }: SizeSelectProps) => {
                         <RadioGroupItem value={size.size} id={size.size} />
                         <Label
                           htmlFor={size.size}
-                          className="cursor-pointer text-sm font-normal text-muted-foreground"
+                          className="flex cursor-pointer items-center gap-1 text-sm font-normal text-muted-foreground rtl:flex-row-reverse"
                         >
-                          {t(`${size.size}`)} ( {size.finalPrice} )
+                          <span>{t(`${size.size}`)}</span>
+                          <span className="text-xs">
+                            (
+                            {formatPrice(size.price, {
+                              currency: locale === "ar" ? "EGP" : "USD",
+                            })}
+                            )
+                          </span>
                         </Label>
                       </div>
                     );

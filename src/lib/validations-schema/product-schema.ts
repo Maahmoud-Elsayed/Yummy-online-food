@@ -1,41 +1,6 @@
 import { z } from "zod";
 import { ACCEPTED_IMAGE_TYPES, MAX_UPLOAD_SIZE } from "../utils";
 
-export const productSchema = z.object({
-  productId: z.string().optional(),
-  productName_en: z.string().trim().min(1, { message: "Required." }),
-  productName_ar: z.string().trim().min(1, { message: "Required." }),
-  description_en: z
-    .string()
-    .min(8, { message: "Description must be at least 8 characters." }),
-  description_ar: z
-    .string()
-    .min(8, { message: "Description must be at least 8 characters." }),
-  price: z.string().optional(),
-  discount: z.string().optional(),
-  additions: z
-    .array(
-      z.object({
-        id: z.string(),
-        name: z.object({
-          en: z.string().min(1, { message: "Required." }),
-          ar: z.string().min(1, { message: "Required." }),
-        }),
-        price: z.string().min(1, { message: "Required." }),
-      }),
-    )
-    .optional(),
-  sizes: z
-    .array(
-      z.object({
-        size: z.enum(["Small", "Medium", "Large"]),
-        price: z.string().min(1, { message: "Required." }),
-      }),
-    )
-    .optional(),
-  category: z.string().min(1, { message: "Required." }),
-});
-
 export const createProductClientSchema = (
   t: (key: string, data?: any) => string,
 ) => {
@@ -45,19 +10,23 @@ export const createProductClientSchema = (
       productName_en: z
         .string()
         .trim()
-        .min(1, { message: t("required") }),
+        .min(1, { message: t("required") })
+        .transform((value) => value.replace(/\s+/g, " ")),
       productName_ar: z
         .string()
         .trim()
-        .min(1, { message: t("required") }),
+        .min(1, { message: t("required") })
+        .transform((value) => value.replace(/\s+/g, " ")),
       description_en: z
         .string()
         .trim()
-        .min(1, { message: t("required") }),
+        .min(1, { message: t("required") })
+        .transform((value) => value.replace(/\s+/g, " ")),
       description_ar: z
         .string()
         .trim()
-        .min(1, { message: t("required") }),
+        .min(1, { message: t("required") })
+        .transform((value) => value.replace(/\s+/g, " ")),
       price: z.string().optional(),
       discount: z.string().optional(),
       additions: z
@@ -65,8 +34,16 @@ export const createProductClientSchema = (
           z.object({
             id: z.string(),
             name: z.object({
-              en: z.string().min(1, { message: t("required") }),
-              ar: z.string().min(1, { message: t("required") }),
+              en: z
+                .string()
+                .trim()
+                .min(1, { message: t("required") })
+                .transform((value) => value.replace(/\s+/g, " ")),
+              ar: z
+                .string()
+                .trim()
+                .min(1, { message: t("required") })
+                .transform((value) => value.replace(/\s+/g, " ")),
             }),
             price: z.string().min(1, { message: t("required") }),
           }),
@@ -134,14 +111,26 @@ export const createProductClientSchema = (
 export const createProductServerSchema = z
   .object({
     productId: z.string().optional(),
-    productName_en: z.string().trim().min(1, { message: "Required." }),
-    productName_ar: z.string().trim().min(1, { message: "Required." }),
+    productName_en: z
+      .string()
+      .trim()
+      .min(1, { message: "Required." })
+      .transform((value) => value.replace(/\s+/g, " ")),
+    productName_ar: z
+      .string()
+      .trim()
+      .min(1, { message: "Required." })
+      .transform((value) => value.replace(/\s+/g, " ")),
     description_en: z
       .string()
-      .min(8, { message: "Description must be at least 8 characters." }),
+      .trim()
+      .min(8, { message: "Description must be at least 8 characters." })
+      .transform((value) => value.replace(/\s+/g, " ")),
     description_ar: z
       .string()
-      .min(8, { message: "Description must be at least 8 characters." }),
+      .trim()
+      .min(8, { message: "Description must be at least 8 characters." })
+      .transform((value) => value.replace(/\s+/g, " ")),
     price: z.string().optional(),
     discount: z.string().optional(),
     additions: z
@@ -149,8 +138,16 @@ export const createProductServerSchema = z
         z.object({
           id: z.string(),
           name: z.object({
-            en: z.string().min(1, { message: "Required." }),
-            ar: z.string().min(1, { message: "Required." }),
+            en: z
+              .string()
+              .trim()
+              .min(1, { message: "Required." })
+              .transform((value) => value.replace(/\s+/g, " ")),
+            ar: z
+              .string()
+              .trim()
+              .min(1, { message: "Required." })
+              .transform((value) => value.replace(/\s+/g, " ")),
           }),
           price: z.string().min(1, { message: "Required." }),
         }),

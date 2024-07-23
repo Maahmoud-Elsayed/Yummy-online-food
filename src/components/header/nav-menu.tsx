@@ -42,7 +42,10 @@ export function NavMenu({ categories }: { categories: Categories }) {
                   aria-hidden="true"
                 />
                 <div className="flex justify-between gap-4 rtl:flex-row-reverse">
-                  <ul className="grid w-[400px] shrink-0 auto-cols-fr grid-flow-col grid-rows-6  pt-4  lg:w-[450px] ">
+                  <ul
+                    dir={locale === "ar" ? "rtl" : "ltr"}
+                    className="grid w-[400px] shrink-0 auto-cols-fr grid-flow-col grid-rows-6  pt-4  lg:w-[450px] "
+                  >
                     <ListItem
                       title={t("navigation.allProducts")}
                       href="/products"

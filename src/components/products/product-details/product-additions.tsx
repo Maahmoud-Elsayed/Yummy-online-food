@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useFilter } from "@/hooks/use-filter";
 import { type ExtraAddition } from "@/lib/types";
+import { formatPrice } from "@/lib/utils";
 import { type Locale } from "@/navigation";
 
 import { useLocale, useTranslations } from "next-intl";
@@ -20,7 +21,7 @@ const ProductAdditions = ({ additions }: ProductAdditionsProps) => {
     },
   );
   const t = useTranslations("pages.productDetails");
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
 
   return (
     <div className="w-full space-y-2">
@@ -50,9 +51,16 @@ const ProductAdditions = ({ additions }: ProductAdditionsProps) => {
               />
               <Label
                 htmlFor={addition.name[locale as Locale]}
-                className="cursor-pointer text-sm font-normal text-muted-foreground"
+                className="flex cursor-pointer items-center gap-1 text-sm font-normal text-muted-foreground rtl:flex-row-reverse"
               >
-                {addition.name[locale as Locale]} ({addition.price.toFixed(2)})
+                <span>{addition.name[locale as Locale]}</span>
+                <span className="text-xs">
+                  (
+                  {formatPrice(addition.price, {
+                    currency: locale === "ar" ? "EGP" : "USD",
+                  })}
+                  )
+                </span>
               </Label>
             </div>
           );

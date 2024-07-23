@@ -2,6 +2,7 @@
 
 import { useFilter } from "@/hooks/use-filter";
 import { cn, formatPrice } from "@/lib/utils";
+import { type Locale } from "@/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { FaCheckCircle } from "react-icons/fa";
 import { IoIosAlert } from "react-icons/io";
@@ -19,7 +20,7 @@ const ProductSizes = ({ sizes }: ProductSizesProps) => {
     route: "replace",
   });
   const t = useTranslations("pages.productDetails");
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
 
   return (
     <div className="w-full space-y-2">
@@ -66,7 +67,11 @@ const ProductSizes = ({ sizes }: ProductSizesProps) => {
               onClick={() => setFilteredSizes(size.size)}
             >
               <span className="text-xs">{t(`${size.size}`)}</span>
-              <span className="text-xs">{formatPrice(size.finalPrice)}</span>
+              <span className="text-xs">
+                {formatPrice(size.finalPrice, {
+                  currency: locale === "ar" ? "EGP" : "USD",
+                })}
+              </span>
             </button>
           ))}
       </div>

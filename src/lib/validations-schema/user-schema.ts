@@ -16,7 +16,8 @@ export const createUserClientSchema = (
       userName: z
         .string()
         .trim()
-        .min(1, { message: t("required") }),
+        .min(1, { message: t("required") })
+        .transform((value) => value.replace(/\s+/g, " ")),
       password: z
         .string()
         .trim()
@@ -39,7 +40,11 @@ export const createUserServerSchema = z
       .min(1, { message: "Required" })
       .email({ message: "Invalid email" }),
     confirmPassword: z.string().trim().min(1, { message: "Required" }),
-    userName: z.string().trim().min(1, { message: "Required" }),
+    userName: z
+      .string()
+      .trim()
+      .min(1, { message: "Required" })
+      .transform((value) => value.replace(/\s+/g, " ")),
     password: z
       .string()
       .trim()
@@ -133,7 +138,8 @@ export const updateUserClientSchema = (
       userName: z
         .string()
         .trim()
-        .min(1, { message: t("required") }),
+        .min(1, { message: t("required") })
+        .transform((value) => value.replace(/\s+/g, " ")),
       email: z
         .string()
         .trim()
@@ -194,7 +200,11 @@ export const updateUserClientSchema = (
 };
 export const updateUserServerSchema = z
   .object({
-    userName: z.string().trim().min(1, { message: "Required" }),
+    userName: z
+      .string()
+      .trim()
+      .min(1, { message: "Required" })
+      .transform((value) => value.replace(/\s+/g, " ")),
     email: z.string().trim().email({ message: "Invalid email" }).optional(),
 
     currentPassword: z.string().trim().min(1, { message: "Required" }),
