@@ -42,7 +42,7 @@ const ProductCard = async ({ product }: ProductCardProps) => {
       <div className="flex h-full w-full max-w-[150px] items-center justify-center bg-[#F7F7F7] md:max-w-[200px]">
         <div className="group relative my-auto aspect-square h-auto max-h-[150px] w-full max-w-[150px] overflow-hidden bg-[#F7F7F7] md:max-h-[200px]  md:max-w-[200px]  ">
           <Image
-            className=" mx-auto h-auto w-auto rounded-md transition-all duration-300 group-hover:scale-125 "
+            className=" mx-auto h-auto w-auto transition-all duration-300 group-hover:scale-125 "
             src={product.image}
             alt={product.name_en}
             fill
@@ -153,7 +153,11 @@ const ProductCard = async ({ product }: ProductCardProps) => {
           )}
           {product.finalPrice > 0 && (
             <div className="flex gap-4">
-              <Price price={product.finalPrice} />
+              <Price
+                className="rtl:flex-row-reverse"
+                price={product.finalPrice}
+                currency={locale === "ar" ? "EGP" : "USD"}
+              />
               {product.discount > 0 && (
                 <del className="text-sm text-muted-foreground ">
                   {formatPrice(product.price)}

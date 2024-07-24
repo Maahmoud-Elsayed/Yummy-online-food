@@ -97,7 +97,11 @@ const ProductCard = async ({ product, type }: ProductCardProps) => {
             </div>
           ) : (
             <div className="flex gap-4">
-              <Price price={product.finalPrice} />
+              <Price
+                price={product.finalPrice}
+                currency={locale === "ar" ? "EGP" : "USD"}
+                className="rtl:flex-row-reverse"
+              />
               {product.discount > 0 && (
                 <del className="text-sm text-muted-foreground ">
                   {formatPrice(product.price)}

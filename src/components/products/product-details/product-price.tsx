@@ -45,7 +45,7 @@ const ProductPrice = ({ sizes, additions, discount }: ProductPriceProps) => {
   }
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 rtl:flex-row-reverse">
       {price > 0 ? (
         <>
           <Price

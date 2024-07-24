@@ -26,7 +26,7 @@ const ProductOverview = async ({ productId }: ProductOverviewProps) => {
   }
 
   const t = await getTranslations("pages.productDetails");
-  const locale = await getLocale();
+  const locale = (await getLocale()) as Locale;
 
   return (
     <Card className=" mt-10 flex w-full flex-col gap-5 p-5 md:flex-row md:gap-10 md:rtl:flex-row-reverse">
@@ -70,8 +70,11 @@ const ProductOverview = async ({ productId }: ProductOverviewProps) => {
                   discount={product.discount}
                 />
               ) : (
-                <div className="flex gap-4">
-                  <Price price={product.finalPrice} />
+                <div className="flex gap-4 rtl:flex-row-reverse ">
+                  <Price
+                    price={product.finalPrice}
+                    currency={locale === "ar" ? "EGP" : "USD"}
+                  />
                   {product?.discount && product.discount > 0 ? (
                     <del className="text-sm text-muted-foreground">
                       {formatPrice(product.price)}
