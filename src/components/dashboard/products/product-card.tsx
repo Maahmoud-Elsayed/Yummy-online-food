@@ -34,12 +34,7 @@ const ProductCard = async ({ product }: ProductCardProps) => {
   const locale = (await getLocale()) as Locale;
   return (
     <Card className="relative flex h-full  w-full    gap-2 overflow-hidden rounded-lg ">
-      {product.discount > 0 && (
-        <Badge className="absolute right-2 top-2 z-10 flex  gap-1 rounded-full bg-primary px-2  text-[10px] text-primary-foreground transition-all duration-300 group-hover:opacity-0 rtl:flex-row-reverse">
-          {product.discount}% <span>{t("off")}</span>
-        </Badge>
-      )}
-      <div className="flex h-full w-full max-w-[150px] items-center justify-center bg-[#F7F7F7] md:max-w-[200px]">
+      <div className=" relative flex h-full w-full max-w-[150px] items-center justify-center bg-[#F7F7F7] md:max-w-[200px]">
         <div className="group relative my-auto aspect-square h-auto max-h-[150px] w-full max-w-[150px] overflow-hidden bg-[#F7F7F7] md:max-h-[200px]  md:max-w-[200px]  ">
           <Image
             className=" mx-auto h-auto w-auto transition-all duration-300 group-hover:scale-125 "
@@ -51,6 +46,11 @@ const ProductCard = async ({ product }: ProductCardProps) => {
             blurDataURL={base64}
           />
         </div>
+        {product.discount > 0 && (
+          <Badge className="absolute right-2 top-2 z-10 flex  gap-1 rounded-full bg-primary px-2  text-[10px] text-primary-foreground transition-all duration-300 group-hover:opacity-0 rtl:flex-row-reverse">
+            {product.discount}% <span>{t("off")}</span>
+          </Badge>
+        )}
       </div>
       <div className=" flex w-full grow  flex-col items-start  gap-2 p-2 sm:gap-3 ">
         <div className="flex w-full  grow  flex-col items-start gap-2  ">
