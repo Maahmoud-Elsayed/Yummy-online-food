@@ -77,6 +77,7 @@ export default function ProductSizes() {
                       type="number"
                       disabled={isSubmitting || sizes.length > 0}
                       min={0}
+                      step={0.01}
                       {...field}
                     />
                   </FormControl>
@@ -97,6 +98,7 @@ export default function ProductSizes() {
                       type="number"
                       disabled={isSubmitting}
                       min={0}
+                      step={0.1}
                       max={100}
                       {...field}
                     />
