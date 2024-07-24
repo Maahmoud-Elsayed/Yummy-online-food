@@ -47,7 +47,7 @@ const ProductCard = async ({ product }: ProductCardProps) => {
           />
         </div>
         {product.discount > 0 && (
-          <Badge className="absolute right-2 top-2 z-10 flex  gap-1 rounded-full bg-primary px-2  text-[10px] text-primary-foreground transition-all duration-300 group-hover:opacity-0 rtl:flex-row-reverse">
+          <Badge className="absolute top-2 z-10 flex gap-1 rounded-full  bg-primary px-2 text-[10px] text-primary-foreground  transition-all duration-300 group-hover:opacity-0 ltr:left-2 rtl:right-2 rtl:flex-row-reverse">
             {product.discount}% <span>{t("off")}</span>
           </Badge>
         )}

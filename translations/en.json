@@ -245,7 +245,8 @@
       "popular": "Popular",
       "error": "Something went wrong. Failed to add items to cart",
       "reviewError": "Something went wrong. Failed to add review",
-      "reviewSuccess": "Your review has been submitted successfully"
+      "reviewSuccess": "Your review has been submitted successfully",
+      "off": "OFF"
     },
     "myAccount": {
       "title": "Account Settings",

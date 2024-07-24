@@ -31,7 +31,7 @@ const ProductCard = async ({ product, type }: ProductCardProps) => {
         className="group relative aspect-square w-full  max-w-[170px] overflow-hidden bg-[#F7F7F7] "
       >
         <Image
-          className=" mx-auto h-auto w-auto rounded-md transition-all duration-300 group-hover:scale-125  "
+          className=" mx-auto h-auto w-auto transition-all duration-300 group-hover:scale-125  "
           src={product.image}
           alt={product[`name_${locale as Locale}`]}
           fill
@@ -41,7 +41,7 @@ const ProductCard = async ({ product, type }: ProductCardProps) => {
         />
 
         {type ? (
-          <Badge className="absolute left-2 top-2  z-10 rounded-full bg-primary px-2  text-[10px] text-primary-foreground transition-all duration-300 group-hover:opacity-0">
+          <Badge className="absolute top-2 z-10 rounded-full  bg-primary px-2 text-[10px] text-primary-foreground  transition-all duration-300 group-hover:opacity-0 ltr:left-2 rtl:right-2">
             {type === "featured"
               ? t("new")
               : type === "popular"
@@ -49,9 +49,9 @@ const ProductCard = async ({ product, type }: ProductCardProps) => {
                 : null}
           </Badge>
         ) : product.discount > 0 ? (
-          <Badge className="absolute top-2 z-10 flex gap-1  rounded-full bg-primary px-2 text-[10px]  text-primary-foreground transition-all duration-300 group-hover:opacity-0 ltr:left-2 rtl:right-2">
-            <span>{t("save")} </span>
+          <Badge className="absolute top-2 z-10 flex gap-1 rounded-full  bg-primary px-2 text-[10px] text-primary-foreground  transition-all duration-300 group-hover:opacity-0 ltr:left-2 rtl:right-2 rtl:flex-row-reverse">
             <span>{product?.discount}%</span>
+            <span>{t("off")} </span>
           </Badge>
         ) : null}
       </Link>
