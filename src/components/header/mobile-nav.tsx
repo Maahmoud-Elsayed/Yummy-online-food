@@ -54,7 +54,7 @@ const MobileNav = ({ categories }: { categories: Categories }) => {
           },
           {
             name: t("navigation.my-orders"),
-            href: "my-account/orders",
+            href: "/my-account/orders",
             icon: <IoReceiptOutline />,
           },
         ],

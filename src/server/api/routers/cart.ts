@@ -17,6 +17,9 @@ export const cartRouter = createTRPCRouter({
         },
         select: {
           CartItems: {
+            orderBy: {
+              createdAt: "desc",
+            },
             select: {
               id: true,
               additions: true,
@@ -58,7 +61,7 @@ export const cartRouter = createTRPCRouter({
         totalQuantity: cartTotalQuantity,
       };
     } catch (error) {
-      console.error("Error getting user cart:", error);
+      console.log("Error getting user cart:", error);
       if (error instanceof TRPCError) {
         throw error;
       } else {
@@ -99,7 +102,7 @@ export const cartRouter = createTRPCRouter({
 
         return { success: true };
       } catch (error) {
-        console.error("Error updating cart:", error);
+        console.log("Error updating cart:", error);
         if (error instanceof TRPCError) {
           throw error;
         } else {
@@ -143,7 +146,7 @@ export const cartRouter = createTRPCRouter({
         return userCart;
       } catch (error) {
         // Handle error gracefully
-        console.error("Error adding item to cart:", error);
+        console.log("Error adding item to cart:", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Something went wrong",
@@ -165,7 +168,7 @@ export const cartRouter = createTRPCRouter({
 
         return { success: true };
       } catch (error) {
-        console.error("Error removing item from cart:", error);
+        console.log("Error removing item from cart:", error);
 
         if (error instanceof TRPCError) {
           throw error;
@@ -204,7 +207,7 @@ export const cartRouter = createTRPCRouter({
 
         return { success: true };
       } catch (error) {
-        console.error("Error removing one item from cart:", error);
+        console.log("Error removing one item from cart:", error);
 
         if (error instanceof TRPCError) {
           throw error;
@@ -236,7 +239,7 @@ export const cartRouter = createTRPCRouter({
 
         return { success: true };
       } catch (error) {
-        console.error("Error increasing item quantity in cart:", error);
+        console.log("Error increasing item quantity in cart:", error);
 
         if (error instanceof TRPCError) {
           throw error;

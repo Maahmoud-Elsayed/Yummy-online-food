@@ -22,7 +22,7 @@ export const categoriesRouter = createTRPCRouter({
 
       return { count: categories.length, categories };
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      console.log("Error fetching categories:", error);
 
       if (error instanceof TRPCError) {
         throw error;
@@ -46,7 +46,7 @@ export const categoriesRouter = createTRPCRouter({
       });
       return categories;
     } catch (error) {
-      console.error("Error fetching category names:", error);
+      console.log("Error fetching category names:", error);
 
       if (error instanceof TRPCError) {
         throw error;

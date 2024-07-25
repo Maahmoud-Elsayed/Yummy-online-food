@@ -204,7 +204,7 @@ export const dashboardRouter = createTRPCRouter({
         percentageIncreaseSales: Number(percentageIncreaseSales.toFixed(1)),
       };
     } catch (error) {
-      console.error("Error fetching dashboard summary", error);
+      console.log("Error fetching dashboard summary", error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Something went wrong",

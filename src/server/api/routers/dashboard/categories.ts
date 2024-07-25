@@ -42,7 +42,7 @@ export const dashboardCategoriesRouter = createTRPCRouter({
 
       return { success: true };
     } catch (error) {
-      console.error("Error deleting category:", error);
+      console.log("Error deleting category:", error);
 
       if (error instanceof TRPCError) {
         throw error;
@@ -92,7 +92,7 @@ export const dashboardCategoriesRouter = createTRPCRouter({
         revalidatePath("/");
         return { success: true };
       } catch (error: any) {
-        console.error("Error upserting category:", error);
+        console.log("Error upserting category:", error);
         if (image) {
           await utapi.deleteFiles(image.key);
         }

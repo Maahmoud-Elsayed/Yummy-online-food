@@ -38,7 +38,7 @@ export const dashboardUsersRouter = createTRPCRouter({
         managersCount,
       };
     } catch (error) {
-      console.error("Error fetching all users:", error);
+      console.log("Error fetching all users:", error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Something went wrong",
@@ -161,7 +161,7 @@ export const dashboardUsersRouter = createTRPCRouter({
           }
         }
       } catch (error) {
-        console.error("Error updating users:", error);
+        console.log("Error updating users:", error);
         if (error instanceof TRPCError) {
           throw error;
         }

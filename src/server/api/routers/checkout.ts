@@ -1,6 +1,5 @@
-import { env } from "@/env";
 import type { ExtraAddition, ExtraSize } from "@/lib/types";
-import { calculateCartTotals } from "@/lib/utils";
+import { calculateCartTotals, getBaseUrl } from "@/lib/utils";
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { stripe } from "@/server/stripe";
 import { type OrderItem, type Size } from "@prisma/client";
@@ -138,8 +137,8 @@ export const checkoutRouter = createTRPCRouter({
         line_items: lineItems,
         mode: "payment",
         customer_email: ctx.session.user.email!,
-        success_url: env.NEXTAUTH_URL + "/my-account/orders/" + order.id,
-        cancel_url: env.NEXTAUTH_URL + "/products",
+        success_url: getBaseUrl() + "/my-account/orders/" + order.id,
+        cancel_url: getBaseUrl() + "/products",
         metadata: { orderId: order.id, checkout: "new" },
         ui_mode: "hosted",
         submit_type: "pay",
@@ -157,7 +156,7 @@ export const checkoutRouter = createTRPCRouter({
 
       return session.url;
     } catch (error) {
-      console.error("Error in create checkout session", error);
+      console.log("Error in create checkout session", error);
       if (error instanceof TRPCError) {
         throw error;
       }
@@ -393,9 +392,8 @@ export const checkoutRouter = createTRPCRouter({
           line_items: lineItems,
           mode: "payment",
           customer_email: ctx.session.user.email!,
-          success_url:
-            env.NEXTAUTH_URL + "/my-account/orders/" + updatedOrder.id,
-          cancel_url: env.NEXTAUTH_URL + "/products",
+          success_url: getBaseUrl() + "/my-account/orders/" + updatedOrder.id,
+          cancel_url: getBaseUrl() + "/products",
           metadata: { orderId: updatedOrder.id, checkout: "update" },
           ui_mode: "hosted",
           submit_type: "pay",
@@ -415,7 +413,7 @@ export const checkoutRouter = createTRPCRouter({
         });
         return session.url;
       } catch (error) {
-        console.error("Error in continue checkout", error);
+        console.log("Error in continue checkout", error);
         if (error instanceof TRPCError) {
           throw error;
         }

@@ -47,7 +47,7 @@ export const authRouter = createTRPCRouter({
         return { success: true };
       } catch (error: any) {
         // Log error for debugging purposes
-        console.error("Error in create user :", error);
+        console.log("Error in create user :", error);
 
         // Handle known errors
         if (error instanceof TRPCError) {
@@ -157,7 +157,7 @@ export const authRouter = createTRPCRouter({
         });
 
         if (error) {
-          console.error("Error sending email:", error);
+          console.log("Error sending email:", error);
           throw new TRPCError({
             code: "BAD_REQUEST",
             message: `${locale === "ar" ? "حدث خطأ ما، يرجى المحاولة مرة أخرى لاحقًا" : "Something went wrong, please try again later"}`,
@@ -167,7 +167,7 @@ export const authRouter = createTRPCRouter({
         return { success: true };
       } catch (error) {
         // Log error for debugging purposes
-        console.error("Error in resetPassword procedure:", error);
+        console.log("Error in resetPassword procedure:", error);
 
         // Handle known TRPC errors
         if (error instanceof TRPCError) {
@@ -238,7 +238,7 @@ export const authRouter = createTRPCRouter({
         return { success: true };
       } catch (error) {
         // Log error for debugging purposes
-        console.error("Error in changePassword procedure:", error);
+        console.log("Error in changePassword procedure:", error);
 
         // Handle known TRPC errors
         if (error instanceof TRPCError) {
@@ -335,7 +335,7 @@ export const authRouter = createTRPCRouter({
         };
       } catch (error: any) {
         // Log error for debugging purposes
-        console.error("Error in updateUser procedure:", error);
+        console.log("Error in updateUser procedure:", error);
 
         if (input.image) {
           await utapi.deleteFiles(input.image.key);
@@ -400,7 +400,7 @@ export const authRouter = createTRPCRouter({
         return { success: true };
       } catch (error) {
         // Log error for debugging purposes
-        console.error("Error in deleteAccount procedure:", error);
+        console.log("Error in deleteAccount procedure:", error);
 
         // Handle known TRPC errors
         if (error instanceof TRPCError) {
@@ -434,7 +434,7 @@ export const authRouter = createTRPCRouter({
       return user;
     } catch (error) {
       // Log error for debugging purposes
-      console.error("Error in authChecker query:", error);
+      console.log("Error in authChecker query:", error);
 
       // Handle known TRPC errors
       if (error instanceof TRPCError) {
@@ -486,7 +486,7 @@ export const authRouter = createTRPCRouter({
         return verification;
       } catch (error) {
         // Log error for debugging purposes
-        console.error("Error in getPasswordResetToken mutation:", error);
+        console.log("Error in getPasswordResetToken mutation:", error);
 
         // Handle known TRPC errors
         if (error instanceof TRPCError) {

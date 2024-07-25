@@ -22,7 +22,7 @@ export const dashboardProductsRouter = createTRPCRouter({
       revalidatePath("/");
       await utapi.deleteFiles(deletedProduct.imageKey);
     } catch (error) {
-      console.error("Error deleting product:", error);
+      console.log("Error deleting product:", error);
       if (error instanceof TRPCError) {
         throw error;
       }
@@ -147,7 +147,7 @@ export const dashboardProductsRouter = createTRPCRouter({
           success: true,
         };
       } catch (error) {
-        console.error("Error creating product:", error);
+        console.log("Error creating product:", error);
 
         if (image) {
           await utapi.deleteFiles(image.key);

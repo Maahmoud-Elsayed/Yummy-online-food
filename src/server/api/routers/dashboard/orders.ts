@@ -19,7 +19,7 @@ export const dashboardOrdersRouter = createTRPCRouter({
         });
         return orders;
       } catch (error) {
-        console.error("Error fetching latest orders:", error);
+        console.log("Error fetching latest orders:", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Something went wrong",
@@ -64,7 +64,7 @@ export const dashboardOrdersRouter = createTRPCRouter({
         deliveredCount,
       };
     } catch (error) {
-      console.error("Error fetching all orders:", error);
+      console.log("Error fetching all orders:", error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Something went wrong",
@@ -105,7 +105,7 @@ export const dashboardOrdersRouter = createTRPCRouter({
           });
         }
       } catch (error) {
-        console.error("Error updating orders:", error);
+        console.log("Error updating orders:", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: `${locale === "ar" ? "حدث خطأ ما، يرجى المحاولة مرة أخرى لاحقًا" : "Something went wrong, please try again later"}`,

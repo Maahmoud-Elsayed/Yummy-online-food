@@ -14,10 +14,9 @@ import { formatPrice } from "@/lib/utils";
 
 import { BsCart4 } from "react-icons/bs";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Link, type Locale, useRouter } from "@/navigation";
 import { api } from "@/trpc/react";
-import { useAnimate } from "framer-motion";
+import { AnimatePresence, useAnimate, motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
@@ -166,7 +165,7 @@ const Cart = () => {
       </SheetTrigger>
       <SheetContent
         aria-describedby={undefined}
-        className="flex  w-full flex-col pr-0 sm:max-w-lg"
+        className="flex  w-full flex-col pe-3 sm:max-w-lg"
         side={isMobile && locale === "ar" ? "left" : "right"}
       >
         <SheetHeader className="space-y-2.5 pr-6">
@@ -175,96 +174,109 @@ const Cart = () => {
             <span className=" text-primary">{totalQuantity}</span> )
           </SheetTitle>
         </SheetHeader>
-        {isLoading ? (
-          <div className="flex h-full w-full items-center justify-center">
-            <LoadingSpinner />
-          </div>
-        ) : totalQuantity > 0 ? (
-          <>
+        <AnimatePresence mode="wait">
+          {isLoading ? (
+            <div className="flex h-full w-full items-center justify-center">
+              <LoadingSpinner />
+            </div>
+          ) : totalQuantity > 0 ? (
             <div className=" flex w-full flex-1 flex-col ">
-              <ScrollArea className="flex-1 pr-6 ">
+              {/* <div className="w-full flex-1 space-y-3 overflow-y-auto pe-3 "> */}
+              <motion.ul
+                key="list"
+                exit={{ y: -30, opacity: 0 }}
+                className="w-full flex-1 space-y-3 overflow-y-auto pe-3 "
+              >
                 {items &&
                   items.length > 0 &&
-                  items.map((item, index) => {
-                    return (
-                      <div key={item.id}>
-                        <CartItem item={item} />
-                        {index < items.length - 1 && (
-                          <Separator className="my-1" />
-                        )}
+                  items.map((item) => (
+                    <motion.li
+                      layout
+                      exit={{ y: -30, opacity: 0 }}
+                      key={item.id}
+                    >
+                      <CartItem item={item} />
+                    </motion.li>
+                  ))}
+              </motion.ul>
+              {/* </div> */}
+              <motion.div exit={{ y: 30, opacity: 0 }}>
+                <SheetFooter className="w-full pe-3">
+                  <div className="w-full space-y-4 ">
+                    <Separator />
+                    <div className="space-y-1.5 text-sm">
+                      <div className="flex">
+                        <span className="flex-1">{t("subtotal")}</span>
+                        <span>
+                          {formatPrice(totalPrice, {
+                            currency: locale === "ar" ? "EGP" : "USD",
+                          })}
+                        </span>
                       </div>
-                    );
-                  })}
-              </ScrollArea>
-              <div className="space-y-4 pr-6">
-                <Separator />
-                <div className="space-y-1.5 text-sm">
-                  <div className="flex">
-                    <span className="flex-1">{t("subtotal")}</span>
-                    <span>
-                      {formatPrice(totalPrice, {
-                        currency: locale === "ar" ? "EGP" : "USD",
-                      })}
-                    </span>
-                  </div>
-                  <div className="flex">
-                    <span className="flex-1">{t("deliveryFee")}</span>
-                    <span>
-                      {formatPrice(fee, {
-                        currency: locale === "ar" ? "EGP" : "USD",
-                      })}
-                    </span>
-                  </div>
-                  <div className="flex">
-                    <span className="flex-1">{t("total")}</span>
-                    <span>
-                      {formatPrice(totalPrice + fee, {
-                        currency: locale === "ar" ? "EGP" : "USD",
-                      })}
-                    </span>
-                  </div>
-                </div>
+                      <div className="flex">
+                        <span className="flex-1">{t("deliveryFee")}</span>
+                        <span>
+                          {formatPrice(fee, {
+                            currency: locale === "ar" ? "EGP" : "USD",
+                          })}
+                        </span>
+                      </div>
+                      <div className="flex">
+                        <span className="flex-1">{t("total")}</span>
+                        <span>
+                          {formatPrice(totalPrice + fee, {
+                            currency: locale === "ar" ? "EGP" : "USD",
+                          })}
+                        </span>
+                      </div>
+                    </div>
 
-                <SheetFooter>
-                  <LoadingButton
-                    className="w-full"
-                    onClick={checkoutHandler}
-                    disabled={isCheckoutLoading}
-                    isLoading={isCheckoutLoading}
-                  >
-                    {t("checkout")}
-                  </LoadingButton>
+                    <LoadingButton
+                      className="w-full"
+                      onClick={checkoutHandler}
+                      disabled={isCheckoutLoading}
+                      isLoading={isCheckoutLoading}
+                    >
+                      {t("checkout")}
+                    </LoadingButton>
+                  </div>
                 </SheetFooter>
-              </div>
+              </motion.div>
             </div>
-          </>
-        ) : (
-          <div className="flex h-full flex-col items-center justify-center space-y-1">
-            <div
-              aria-hidden="true"
-              className="relative mb-4 h-60 w-60 text-muted-foreground"
+          ) : (
+            <motion.div
+              key="fallback"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex h-full flex-col items-center justify-center space-y-1"
             >
-              <Image
-                src="/assets/images/empty-cart.jpg"
-                fill
-                alt="empty shopping cart"
-              />
-            </div>
-            <div className="text-xl font-semibold">{t("empty")}</div>
-            <SheetTrigger asChild>
-              <Link
-                href="/products"
-                className={buttonVariants({
-                  variant: "link",
-                  size: "sm",
-                  className: "text-muted-foreground ltr:text-sm rtl:text-base",
-                })}
+              <div
+                aria-hidden="true"
+                className="relative mb-4 h-60 w-60 text-muted-foreground"
               >
-                {t("addItems")}
-              </Link>
-            </SheetTrigger>
-          </div>
-        )}
+                <Image
+                  src="/assets/images/empty-cart.jpg"
+                  fill
+                  alt="empty shopping cart"
+                />
+              </div>
+              <div className="text-xl font-semibold">{t("empty")}</div>
+              <SheetTrigger asChild>
+                <Link
+                  href="/products"
+                  className={buttonVariants({
+                    variant: "link",
+                    size: "sm",
+                    className:
+                      "text-muted-foreground ltr:text-sm rtl:text-base",
+                  })}
+                >
+                  {t("addItems")}
+                </Link>
+              </SheetTrigger>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </SheetContent>
     </Sheet>
   );

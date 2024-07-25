@@ -124,14 +124,15 @@ model Review {
 }
 
 model CartItem {
-  id        String  @id @default(cuid())
+  id        String   @id @default(cuid())
   productId String
-  size      Size    @default(None)
+  size      Size     @default(None)
   additions Json
   quantity  Int
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
+  createdAt DateTime @default(now())
 
   @@unique([productId, size, additions, userId])
   @@map("cart_items")

@@ -30,7 +30,7 @@ export const ordersRouter = createTRPCRouter({
 
       return { orders, count };
     } catch (error) {
-      console.error("Error fetching user orders:", error);
+      console.log("Error fetching user orders:", error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Something went wrong",
@@ -52,7 +52,7 @@ export const ordersRouter = createTRPCRouter({
 
         return order;
       } catch (error) {
-        console.error("Error canceling order:", error);
+        console.log("Error canceling order:", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Something went wrong",
@@ -100,7 +100,7 @@ export const ordersRouter = createTRPCRouter({
           }),
         };
       } catch (error) {
-        console.error("Error fetching user order:", error);
+        console.log("Error fetching user order:", error);
 
         if (error instanceof TRPCError) {
           throw error;

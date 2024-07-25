@@ -55,7 +55,7 @@ export const reviewsRouter = createTRPCRouter({
           count: reviews?._count?.reviews ?? 0,
         };
       } catch (error) {
-        console.error("Error fetching product reviews:", error);
+        console.log("Error fetching product reviews:", error);
 
         if (error instanceof TRPCError) {
           throw error;
@@ -127,7 +127,7 @@ export const reviewsRouter = createTRPCRouter({
 
         return review;
       } catch (error) {
-        console.error("Error submitting review:", error);
+        console.log("Error submitting review:", error);
         if (error instanceof TRPCError) {
           throw error;
         }
@@ -156,7 +156,7 @@ export const reviewsRouter = createTRPCRouter({
         });
         return review;
       } catch (error) {
-        console.error("Error fetching user review:", error);
+        console.log("Error fetching user review:", error);
         if (error instanceof TRPCError) {
           throw error;
         }

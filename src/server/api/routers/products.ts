@@ -184,7 +184,7 @@ export const productsRouter = createTRPCRouter({
           hasNextPage: page < totalPages,
         };
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.log("Error fetching products:", error);
 
         if (error instanceof TRPCError) {
           throw error;
@@ -254,7 +254,7 @@ export const productsRouter = createTRPCRouter({
             })
           : [];
       } catch (error) {
-        console.error("Error fetching latest products:", error);
+        console.log("Error fetching latest products:", error);
 
         if (error instanceof TRPCError) {
           throw error;
@@ -281,7 +281,7 @@ export const productsRouter = createTRPCRouter({
         });
         return product;
       } catch (error) {
-        console.error("Error fetching product name:", error);
+        console.log("Error fetching product name:", error);
         if (error instanceof TRPCError) {
           throw error;
         }
@@ -318,7 +318,7 @@ export const productsRouter = createTRPCRouter({
             }
           : null;
       } catch (error) {
-        console.error("Error fetching product info:", error);
+        console.log("Error fetching product info:", error);
         if (error instanceof TRPCError) {
           throw error;
         }
@@ -366,7 +366,7 @@ export const productsRouter = createTRPCRouter({
             })
           : [];
       } catch (error) {
-        console.error("Error fetching products with IDs:", error);
+        console.log("Error fetching products with IDs:", error);
 
         if (error instanceof TRPCError) {
           throw error;

@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     const signSecret = env.STRIPE_WEBHOOK_KEY;
     event = stripe.webhooks.constructEvent(reqBuffer, sig, signSecret);
   } catch (e) {
-    console.error("stripe error", e);
+    console.log("stripe error", e);
     return new Response(`Webhook error: something went wrong`, {
       status: 400,
     });
@@ -74,7 +74,7 @@ export async function POST(req: Request) {
         }),
       });
       if (error) {
-        console.error("Error sending email:", error);
+        console.log("Error sending email:", error);
       }
 
       const mergedCounts = mergeCounts(soldItems?.items ?? []);
