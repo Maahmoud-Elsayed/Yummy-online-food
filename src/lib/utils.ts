@@ -17,7 +17,7 @@ export const ACCEPTED_IMAGE_TYPES = [
 
 export function getBaseUrl() {
   if (process.env.VERCEL_ENV === "production") {
-    return process.env.PRODUCTION_URL;
+    return process.env.NEXTAUTH_URL;
   }
 
   if (process.env.VERCEL_URL) {

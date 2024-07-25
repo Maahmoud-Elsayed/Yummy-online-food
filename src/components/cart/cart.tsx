@@ -181,11 +181,10 @@ const Cart = () => {
             </div>
           ) : totalQuantity > 0 ? (
             <div className=" flex w-full flex-1 flex-col ">
-              {/* <div className="w-full flex-1 space-y-3 overflow-y-auto pe-3 "> */}
               <motion.ul
                 key="list"
                 exit={{ y: -30, opacity: 0 }}
-                className="w-full flex-1 space-y-3 overflow-y-auto pe-3 "
+                className="w-full flex-1 space-y-3 overflow-y-auto pb-2 pe-3 "
               >
                 {items &&
                   items.length > 0 &&
@@ -199,7 +198,7 @@ const Cart = () => {
                     </motion.li>
                   ))}
               </motion.ul>
-              {/* </div> */}
+
               <motion.div exit={{ y: 30, opacity: 0 }}>
                 <SheetFooter className="w-full pe-3">
                   <div className="w-full space-y-4 ">
