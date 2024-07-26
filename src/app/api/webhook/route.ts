@@ -12,13 +12,12 @@ export async function POST(req: Request) {
   const headersList = headers();
   const sig = headersList.get("stripe-signature")!;
   let event;
-  console.log("stripe sig", sig);
 
   try {
-    const reqBuffer = await req.text();
-    console.log("stripe req", reqBuffer);
+    const reqBuffer = await req.arrayBuffer();
+    const rawBody = Buffer.from(reqBuffer).toString("utf-8");
     const signSecret = env.STRIPE_WEBHOOK_KEY;
-    event = stripe.webhooks.constructEvent(reqBuffer, sig, signSecret);
+    event = stripe.webhooks.constructEvent(rawBody, sig, signSecret);
   } catch (e) {
     console.log("stripe error", e);
     return new Response(`Webhook error: ${e}`, {
