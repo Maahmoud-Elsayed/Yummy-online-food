@@ -9,13 +9,14 @@ import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
 export async function POST(req: Request) {
-  const sig = req.headers.get("stripe-signature")!;
-  // const sig = headersList.get("stripe-signature")!;
+  const headersList = headers();
+  const sig = headersList.get("stripe-signature")!;
   let event;
+  console.log("stripe sig", sig);
 
   try {
-    const reqBuffer = JSON.stringify(req.body);
-    console.log(sig , reqBuffer);
+    const reqBuffer = await req.text();
+    console.log("stripe req", reqBuffer);
     const signSecret = env.STRIPE_WEBHOOK_KEY;
     event = stripe.webhooks.constructEvent(reqBuffer, sig, signSecret);
   } catch (e) {
