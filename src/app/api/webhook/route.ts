@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   let event;
 
   try {
-    const reqBuffer = await req.text();
+    const reqBuffer =  JSON.stringify(req.body);
     const signSecret = env.STRIPE_WEBHOOK_KEY;
     event = stripe.webhooks.constructEvent(reqBuffer, sig, signSecret);
   } catch (e) {
