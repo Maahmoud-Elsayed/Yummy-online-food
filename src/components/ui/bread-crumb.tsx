@@ -1,6 +1,6 @@
 "use client";
 
-import { Link, type Locale } from "@/navigation";
+import { Link } from "@/navigation";
 
 import {
   Breadcrumb,
@@ -29,7 +29,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useParams, usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -48,8 +48,6 @@ const BreadcrumbResponsive = ({
   const params = useParams();
   const productId = params?.productId;
   const orderId = params?.orderId;
-
-  const locale = useLocale() as Locale;
 
   const t = useTranslations("navigation");
 
