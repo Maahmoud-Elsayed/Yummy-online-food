@@ -9,7 +9,7 @@ const GetApp = () => {
   const locale = useLocale() as Locale;
   return (
     <section>
-      <Container className=" mb-10 mt-20 flex flex-col items-center justify-center gap-8  md:mb-0 md:flex-row md:gap-20">
+      <Container className=" mb-20 mt-20 flex flex-col items-center justify-center gap-8  md:mb-0 md:flex-row md:gap-20">
         <MotionDiv
           initial={{ opacity: 0, x: locale === "en" ? -100 : 100 }}
           whileInView={{ opacity: 1, x: 0 }}

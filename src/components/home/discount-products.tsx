@@ -11,7 +11,7 @@ const DiscountProducts = async () => {
   return (
     <section>
       <Container className="mt-20">
-        <h2 className=" mb-10 text-center text-2xl font-semibold text-foreground">
+        <h2 className=" mb-20 text-center text-2xl font-semibold text-foreground">
           {t("discount")}
         </h2>
         <ListItems products={itemsWithDiscount} direction="backward" />

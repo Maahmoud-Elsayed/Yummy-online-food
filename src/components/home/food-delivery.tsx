@@ -12,7 +12,7 @@ const FoodDelivery = () => {
   return (
     <section>
       <Container className="mt-20 ">
-        <div className="mb-10">
+        <div className="mb-20">
           <h2 className="text-center text-2xl font-semibold text-foreground">
             {t("title")}
           </h2>
