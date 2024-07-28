@@ -1,3 +1,4 @@
+import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formattedDate } from "@/lib/utils";
 import { type Locale } from "@/navigation";
@@ -7,10 +8,15 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { IoIosClose } from "react-icons/io";
 
-const Receipt = async ({ orderId }: { orderId: string }) => {
+type ReceiptProps = {
+  orderId: string;
+  page: "user" | "admin";
+};
+
+const Receipt = async ({ orderId, page }: ReceiptProps) => {
   let order: OrderInfo;
   try {
-    order = await api.orders.getUserOrder(orderId);
+    order = await api.orders.getUserOrder({ id: orderId, page });
   } catch (error) {
     notFound();
   }
@@ -48,7 +54,7 @@ const Receipt = async ({ orderId }: { orderId: string }) => {
           </div>
         </div>
         <h3 className="text-sm font-medium text-foreground">{t("summary")}</h3>
-        <div className="space-y-2 rounded-md bg-white p-4 text-sm text-muted-foreground">
+        <Card className="space-y-2  p-4 text-sm text-muted-foreground">
           {order.items.map((item) => (
             <div key={item.id} className="space-y-2">
               <div className="flex items-center justify-between gap-4">
@@ -89,36 +95,37 @@ const Receipt = async ({ orderId }: { orderId: string }) => {
             <p>{t("total")}</p>
             <p>${order.total}</p>
           </div>
-        </div>
-        <div className="space-y-4">
-          <h3 className="text-sm font-medium text-foreground">
-            {t("customerDetails")}
-          </h3>
-          <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-            <p>
-              {t("name")} : {order.customerName}
-            </p>
-            <p>
-              {t("email")} : {order.customerEmail}
-            </p>
-          </div>
-        </div>
-        {order.address && (
-          <div className="space-y-4">
-            <Separator className="bg-gray-300" />
+        </Card>
+        <div className="flex flex-col justify-start gap-6 md:flex-row md:flex-wrap">
+          <div className="  flex-1 space-y-6 ">
             <h3 className="text-sm font-medium text-foreground">
-              {t("address")}
+              {t("customerDetails")}
             </h3>
-            <div className="flex flex-col gap-2 text-sm text-muted-foreground">
-              {Object.keys(order.address).map((key) => (
-                <p key={key}>
-                  {t(key)} :{" "}
-                  {order.address?.[key as keyof typeof order.address]}
-                </p>
-              ))}
-            </div>
+            <Card className="flex flex-col gap-2  p-4 text-sm text-muted-foreground">
+              <p>
+                {t("name")} : {order.customerName}
+              </p>
+              <p className="w-full truncate ">
+                {t("email")} : {order.customerEmail}
+              </p>
+            </Card>
           </div>
-        )}
+          {order.address && (
+            <div className=" flex-1 space-y-6">
+              <h3 className="text-sm font-medium text-foreground">
+                {t("address")}
+              </h3>
+              <Card className="flex w-full  flex-col gap-2 p-4 text-sm text-muted-foreground">
+                {Object.keys(order.address).map((key) => (
+                  <p key={key}>
+                    {t(key)} :{" "}
+                    {order.address?.[key as keyof typeof order.address]}
+                  </p>
+                ))}
+              </Card>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

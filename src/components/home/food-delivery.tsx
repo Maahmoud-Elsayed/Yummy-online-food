@@ -1,8 +1,9 @@
-import Image from "next/image";
 import { Link, type Locale } from "@/navigation";
-import Container from "../ui/container";
 import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
+import Container from "../ui/container";
 
+import { Card } from "../ui/card";
 import MotionDiv from "../ui/motion-div";
 
 const FoodDelivery = () => {
@@ -19,14 +20,14 @@ const FoodDelivery = () => {
             {t("description")}
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
           <MotionDiv
             initial={{ opacity: 0, x: locale === "en" ? -100 : 100 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true, amount: 0.5 }}
           >
-            <div className="w-fill flex overflow-hidden rounded-md border border-gray-300">
+            <Card className="w-fill flex overflow-hidden ">
               <div className="w-[35%] max-w-[200px] bg-[#ed613d]">
                 <Image
                   className="mb-auto ml-auto pb-5"
@@ -52,7 +53,7 @@ const FoodDelivery = () => {
                   {t("button")}
                 </Link>
               </div>
-            </div>
+            </Card>
           </MotionDiv>
           <MotionDiv
             initial={{ opacity: 0, x: locale === "en" ? 100 : -100 }}
@@ -60,7 +61,7 @@ const FoodDelivery = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true, amount: 0.5 }}
           >
-            <div className="w-fill flex overflow-hidden rounded-md border border-gray-300">
+            <Card className="w-fill flex overflow-hidden ">
               <div className="w-[35%] max-w-[200px] bg-[#00b68d]">
                 <Image
                   className="mb-auto ml-auto pb-5"
@@ -86,7 +87,7 @@ const FoodDelivery = () => {
                   {t("button")}
                 </Link>
               </div>
-            </div>
+            </Card>
           </MotionDiv>
           <MotionDiv
             initial={{ opacity: 0, x: locale === "en" ? -100 : 100 }}
@@ -94,7 +95,7 @@ const FoodDelivery = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true, amount: 0.5 }}
           >
-            <div className="w-fill flex overflow-hidden rounded-md border border-gray-300">
+            <Card className="w-fill flex overflow-hidden ">
               <div className="w-[35%] max-w-[200px] bg-[#FEFEFE]">
                 <Image
                   className="mb-auto ml-auto pb-5"
@@ -121,7 +122,7 @@ const FoodDelivery = () => {
                   {t("button")}
                 </Link>
               </div>
-            </div>
+            </Card>
           </MotionDiv>
         </div>
       </Container>

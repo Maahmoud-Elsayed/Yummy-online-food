@@ -40,10 +40,10 @@ export function generateMetadata({
 const Products = async ({ searchParams }: ProductsProps) => {
   noStore();
   return (
-    <Container className="relative my-10 pb-20">
+    <Container className="relative my-6 pb-16">
       {/* <BreadCrumb /> */}
       <BreadcrumbResponsive />
-      <div className="mt-10 flex gap-4 rtl:flex-row-reverse">
+      <div className="mt-6 flex gap-4 rtl:flex-row-reverse">
         <div className="hidden lg:flex">
           <ProductsFilter />
         </div>

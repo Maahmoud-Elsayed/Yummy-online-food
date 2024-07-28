@@ -1,14 +1,15 @@
 "use client";
 
-import * as React from "react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons";
+import AutoScroll, {
+  type AutoScrollOptionsType,
+} from "embla-carousel-auto-scroll";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
-import Autoplay, { AutoplayOptionsType } from "embla-carousel-autoplay";
-
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import * as React from "react";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -20,8 +21,8 @@ type CarouselProps = {
   plugins?: CarouselPlugin;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
-  autoPlay?: boolean;
-  autoPlayOpts?: AutoplayOptionsType;
+  autoScroll?: boolean;
+  autoScrollOpts?: AutoScrollOptionsType;
 };
 
 type CarouselContextProps = {
@@ -56,23 +57,23 @@ const Carousel = React.forwardRef<
       setApi,
       plugins,
       className,
-      autoPlay = false,
-      autoPlayOpts,
       children,
+      autoScroll = false,
+      autoScrollOpts,
       ...props
     },
     ref,
   ) => {
-    let allPlugins: CarouselPlugin = plugins ?? [];
-    if (autoPlay) {
-      allPlugins.push(Autoplay(autoPlayOpts));
-    }
+    const combinedPlugins: CarouselPlugin = autoScroll
+      ? [...(plugins ?? []), AutoScroll(autoScrollOpts)]
+      : plugins;
+
     const [carouselRef, api] = useEmblaCarousel(
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
       },
-      allPlugins,
+      combinedPlugins,
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
@@ -129,6 +130,35 @@ const Carousel = React.forwardRef<
       };
     }, [api, onSelect]);
 
+    const elementRef = React.useRef<HTMLDivElement | null>(null);
+
+    React.useEffect(() => {
+      if (!api || !autoScroll) {
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry?.isIntersecting) {
+            api.plugins().autoScroll.play(); 
+          } else {
+            api.plugins().autoScroll.stop();
+          }
+        },
+        { threshold: 0 }, // Adjust threshold as needed
+      );
+
+      if (elementRef.current) {
+        observer.observe(elementRef.current);
+      }
+
+      return () => {
+        if (elementRef.current) {
+          observer.unobserve(elementRef.current);
+        }
+      };
+    }, [api, autoScroll, elementRef.current]);
+
     return (
       <CarouselContext.Provider
         value={{
@@ -143,15 +173,17 @@ const Carousel = React.forwardRef<
           canScrollNext,
         }}
       >
-        <div
-          ref={ref}
-          onKeyDownCapture={handleKeyDown}
-          className={cn("relative", className)}
-          role="region"
-          aria-roledescription="carousel"
-          {...props}
-        >
-          {children}
+        <div ref={elementRef}>
+          <div
+            ref={ref}
+            onKeyDownCapture={handleKeyDown}
+            className={cn("relative", className)}
+            role="region"
+            aria-roledescription="carousel"
+            {...props}
+          >
+            {children}
+          </div>
         </div>
       </CarouselContext.Provider>
     );
@@ -262,10 +294,7 @@ const CarouselNext = React.forwardRef<
 CarouselNext.displayName = "CarouselNext";
 
 export {
-  type CarouselApi,
   Carousel,
   CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
+  CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi
 };

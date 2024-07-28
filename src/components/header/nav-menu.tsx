@@ -28,7 +28,7 @@ export function NavMenu({ categories }: { categories: Categories }) {
     <NavigationMenu className="group">
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="  font-medium text-foreground group-hover:text-primary rtl:text-base">
+          <NavigationMenuTrigger className=" px-3 font-medium text-foreground group-hover:text-primary lg:px-4 rtl:text-base">
             {t("navigation.menu")}
           </NavigationMenuTrigger>
           <NavigationMenuContent>

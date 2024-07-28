@@ -8,7 +8,7 @@ const Footer = () => {
   const t = useTranslations("footer");
   return (
     <footer className="items-center justify-center ">
-      <div className="border-y border-gray-200 bg-[#262626] text-gray-600">
+      <div className="border-b border-gray-200 bg-[#262626] text-gray-600">
         <Container>
           <div className=" gap-6 py-10 sm:py-12  md:flex  md:justify-between   md:rtl:flex-row-reverse ">
             <div className=" ltr:flex-1">

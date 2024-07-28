@@ -1,9 +1,9 @@
+import { type UserOrders } from "@/server/api/routers/orders";
 import { api } from "@/trpc/server";
+import { getTranslations } from "next-intl/server";
+import { unstable_noStore as noStore } from "next/cache";
 import { notFound } from "next/navigation";
 import OrderCard from "./order-card";
-import { type UserOrders } from "@/server/api/routers/orders";
-import { unstable_noStore as noStore } from "next/cache";
-import { getTranslations } from "next-intl/server";
 
 const OrdersList = async () => {
   noStore();
@@ -16,8 +16,8 @@ const OrdersList = async () => {
   const { orders, count } = ordersDetails || { orders: [], count: 0 };
   const t = await getTranslations("pages.myOrders");
   return (
-    <div className="my-10">
-      <h2 className="mb-10 text-xl font-medium text-foreground">
+    <div className="my-6">
+      <h2 className="mb-6 text-xl font-medium text-foreground">
         {t("title")} (<span className="text-base text-primary"> {count} </span>)
       </h2>
       {orders?.length > 0 ? (

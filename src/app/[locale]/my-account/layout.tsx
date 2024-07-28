@@ -50,7 +50,7 @@ const ProfileLayout = ({
     <div className=" relative flex h-full  ">
       <SideBar menuItems={menuItems} />
       <main className="flex-1 ">
-        <Container className="mt-10 sm:mt-5 md:ps-8 xl:pe-44">
+        <Container className="mt-6 md:ps-8 xl:pe-44">
           <BreadcrumbResponsive />
           {children}
         </Container>

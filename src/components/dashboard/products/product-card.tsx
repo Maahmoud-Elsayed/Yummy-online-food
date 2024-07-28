@@ -1,10 +1,11 @@
-import Image from "next/image";
 import { Link } from "@/navigation";
+import Image from "next/image";
 
 import { formatPrice } from "@/lib/utils";
 
 import { Rating, ThinRoundedStar } from "@smastrom/react-rating";
 
+import DeleteItem from "@/components/modals/delete-item";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -22,7 +23,6 @@ import { type Locale } from "@/navigation";
 import { type Product } from "@/server/api/routers/products";
 import "@smastrom/react-rating/style.css";
 import { getLocale, getTranslations } from "next-intl/server";
-import DeleteItem from "@/components/modals/delete-item";
 
 type ProductCardProps = {
   product: Product;
@@ -151,7 +151,7 @@ const ProductCard = async ({ product }: ProductCardProps) => {
               )}
             </div>
           )}
-          {product.finalPrice > 0 && (
+          {product.finalPrice > 0 ? (
             <div className="flex gap-4">
               <Price
                 className="rtl:flex-row-reverse"
@@ -163,6 +163,10 @@ const ProductCard = async ({ product }: ProductCardProps) => {
                   {formatPrice(product.price)}
                 </del>
               )}
+            </div>
+          ) : (
+            <div className="text-sm text-muted-foreground">
+              {t("priceSelection")}
             </div>
           )}
         </div>

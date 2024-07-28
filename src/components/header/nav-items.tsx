@@ -1,13 +1,13 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "@/navigation";
+import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import Cart from "../cart/cart";
 import { buttonVariants } from "../ui/button";
 import { Separator } from "../ui/separator";
-import { useTranslations } from "next-intl";
-import UserAccountMenu from "./user-account-menu";
-import Cart from "../cart/cart";
 import LocaleSwitcher from "./locae-switcher";
-import { Skeleton } from "@/components/ui/skeleton";
+import UserAccountMenu from "./user-account-menu";
 
 const NavItems = () => {
   const { data: session, status } = useSession();
@@ -39,7 +39,7 @@ const NavItems = () => {
     );
   }
   return (
-    <div className=" flex items-center gap-4  ">
+    <div className=" flex items-center gap-3 lg:gap-4  ">
       <div className="hidden gap-4 md:flex md:flex-1 md:items-center md:justify-end ">
         {session ? null : (
           <>
@@ -73,7 +73,10 @@ const NavItems = () => {
             <>
               <Link
                 href={"/dashboard"}
-                className={buttonVariants({ variant: "default" })}
+                className={buttonVariants({
+                  variant: "default",
+                  className: "px-3 lg:px-4",
+                })}
               >
                 {t("dashboard")}
               </Link>

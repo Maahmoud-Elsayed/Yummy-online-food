@@ -1,18 +1,18 @@
-import Image from "next/image";
 import { Link } from "@/navigation";
+import Image from "next/image";
 
 import { formatPrice } from "@/lib/utils";
 import { Rating, ThinRoundedStar } from "@smastrom/react-rating";
 import AddButton from "./add-button";
 
+import { getImagePlaceHolder } from "@/lib/image-placeholder";
+import { type Locale } from "@/navigation";
 import { type Product } from "@/server/api/routers/products";
 import "@smastrom/react-rating/style.css";
+import { getLocale, getTranslations } from "next-intl/server";
 import { Badge } from "../ui/badge";
 import { Card } from "../ui/card";
 import Price from "../ui/price";
-import { getImagePlaceHolder } from "@/lib/image-placeholder";
-import { getLocale, getTranslations } from "next-intl/server";
-import { type Locale } from "@/navigation";
 
 type ProductCardProps = {
   product: Omit<Product, "category"> & {
@@ -26,10 +26,7 @@ const ProductCard = async ({ product, type }: ProductCardProps) => {
   const base64 = await getImagePlaceHolder(product.image);
   return (
     <Card className="relative flex h-full  w-full   gap-2 overflow-hidden rounded-lg ">
-      <Link
-        href={`/products/${product.id}`}
-        className="group relative aspect-square w-full  max-w-[170px] overflow-hidden bg-[#F7F7F7] "
-      >
+      <div className="group relative aspect-square w-full max-w-[150px]  overflow-hidden bg-[#F7F7F7] sm:max-w-[170px] ">
         <Image
           className=" mx-auto h-auto w-auto transition-all duration-300 group-hover:scale-125  "
           src={product.image}
@@ -54,41 +51,41 @@ const ProductCard = async ({ product, type }: ProductCardProps) => {
             <span>{t("off")} </span>
           </Badge>
         ) : null}
-      </Link>
-      <div className=" flex w-full grow  flex-col justify-between gap-2 p-2 sm:gap-3">
-        <Link
-          href={`/products/${product.id}`}
-          className="flex w-full  flex-col items-start gap-2 self-center sm:gap-3 "
-        >
-          <h3 className=" w-full truncate text-foreground">
+      </div>
+      <div className=" flex w-full grow  flex-col justify-between gap-1.5 p-2">
+        <div className="flex w-full  flex-col items-start gap-1.5 self-center  ">
+          <Link
+            href={`/products/${product.id}`}
+            className=" w-fit max-w-full truncate font-medium text-foreground hover:text-primary"
+          >
             {product[`name_${locale as Locale}`]}
-          </h3>
-          <div className="flex w-full flex-col  gap-2 sm:gap-3 ">
-            <div className="flex gap-2">
-              <Rating
-                className="-ml-0.5"
-                style={{ maxWidth: 100 }}
-                itemStyles={{
-                  itemShapes: ThinRoundedStar,
-                  activeFillColor: "#f59e0b",
+          </Link>
 
-                  inactiveStrokeColor: "#f59e0b",
-                  activeStrokeColor: "#f59e0b",
-                  itemStrokeWidth: 1,
-                }}
-                readOnly
-                value={product.avgRate}
-                halfFillMode="svg"
-              />
-              <span className=" flex w-fit items-center rounded bg-slate-200 px-2.5 py-0.5 text-xs font-semibold text-primary">
-                {product.avgRate}
-              </span>
-            </div>
+          <div className="flex gap-2">
+            <Rating
+              className="-ml-0.5"
+              style={{ maxWidth: 100 }}
+              itemStyles={{
+                itemShapes: ThinRoundedStar,
+                activeFillColor: "#f59e0b",
 
-            <p className=" text-[12px] font-semibold italic text-muted-foreground">
-              {t("reviews")} {product?._count?.reviews || 0}
-            </p>
+                inactiveStrokeColor: "#f59e0b",
+                activeStrokeColor: "#f59e0b",
+                itemStrokeWidth: 1,
+              }}
+              readOnly
+              value={product.avgRate}
+              halfFillMode="svg"
+            />
+            <span className=" flex w-fit items-center rounded bg-slate-200 px-2.5 py-0.5 text-xs font-semibold text-primary">
+              {product.avgRate}
+            </span>
           </div>
+
+          <p className=" text-[12px] font-semibold italic text-muted-foreground">
+            {t("reviews")} {product?._count?.reviews || 0}
+          </p>
+
           {product.additions.length > 0 || product.sizes.length > 0 ? (
             <div className="flex  grow items-center">
               <p className="text-xs font-medium text-muted-foreground">
@@ -109,7 +106,7 @@ const ProductCard = async ({ product, type }: ProductCardProps) => {
               )}
             </div>
           )}
-        </Link>
+        </div>
 
         <AddButton product={product} />
       </div>

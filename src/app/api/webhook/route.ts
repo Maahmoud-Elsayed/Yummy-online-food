@@ -32,10 +32,6 @@ export async function POST(req: Request) {
     const email = event?.data?.object?.customer_email;
     const address = event.data.object.customer_details?.address;
     if (isPaid) {
-      const soldItems = await db.order.findUnique({
-        where: { id: orderId },
-        select: { items: { select: { productId: true, quantity: true } } },
-      });
       const order = await db.order.update({
         where: { id: orderId },
         include: {
@@ -44,6 +40,7 @@ export async function POST(req: Request) {
         },
         data: { status: "PAID", address: JSON.stringify(address) },
       });
+
       if (checkoutStatus === "new") {
         await db.user.update({
           where: { email: email! },
@@ -78,7 +75,7 @@ export async function POST(req: Request) {
         console.log("Error sending email:", error);
       }
 
-      const mergedCounts = mergeCounts(soldItems?.items ?? []);
+      const mergedCounts = mergeCounts(order.items);
       await db.$transaction(
         mergedCounts.map((product) =>
           db.product.update({
@@ -87,8 +84,9 @@ export async function POST(req: Request) {
           }),
         ),
       );
+
+      revalidatePath("/");
     }
-    revalidatePath("/");
   }
 
   return new Response("Success", {

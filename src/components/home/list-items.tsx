@@ -2,50 +2,56 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
-import { type Product } from "@/server/api/routers/products";
 import { Link } from "@/navigation";
+import { type Product } from "@/server/api/routers/products";
+import { useLocale, useTranslations } from "next-intl";
 import ProductCard from "../products/product-card";
 import { Card } from "../ui/card";
-import { useLocale, useTranslations } from "next-intl";
 
 type ListItemsProps = {
   products: Omit<Product, "category">[];
   type?: "featured" | "popular";
+  direction?: "forward" | "backward";
 };
-const ListItems = ({ products, type }: ListItemsProps) => {
+const ListItems = ({
+  products,
+  type,
+  direction = "forward",
+}: ListItemsProps) => {
   const t = useTranslations("pages.home.productsSection");
   const locale = useLocale();
   return (
-    <div className=" w-full pb-12 sm:px-12 sm:pb-0 lg:px-0">
+    <div className=" w-full">
       {products.length > 0 ? (
         <Carousel
           className="w-full"
           opts={{
-            slidesToScroll: 1,
-            align: "start",
+            // slidesToScroll: 1,
+            // align: "start",
             direction: locale === "ar" ? "rtl" : "ltr",
             loop: true,
+            dragFree: true,
           }}
-          autoPlay
-          autoPlayOpts={{
-            delay: 3000,
-            stopOnMouseEnter: true,
+          autoScroll
+          autoScrollOpts={{
             stopOnInteraction: false,
+            stopOnMouseEnter: true,
+            direction: direction,
+            startDelay: 500,
+            speed: 1,
           }}
         >
           <CarouselContent className="">
             {products.map((product) => (
               <CarouselItem
                 key={product.id}
-                className=" flex basis-full cursor-grab  justify-center    lg:basis-1/2"
+                className=" flex basis-full cursor-grab  justify-center    sm:basis-3/4 md:basis-2/3   lg:basis-1/2"
               >
                 <ProductCard product={product} type={type} />
               </CarouselItem>
             ))}
-            <CarouselItem className=" flex basis-full cursor-grab  justify-center   lg:basis-1/2">
+            <CarouselItem className=" flex basis-full cursor-grab  justify-center sm:basis-3/4 md:basis-2/3   lg:basis-1/2">
               <Link
                 className="h-full w-full"
                 href={{
@@ -69,8 +75,6 @@ const ListItems = ({ products, type }: ListItemsProps) => {
               </Link>
             </CarouselItem>
           </CarouselContent>
-          <CarouselPrevious className=" -bottom-12 left-[calc(50%-3rem)] top-auto -translate-x-1/2 translate-y-0 sm:-left-12 sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0" />
-          <CarouselNext className=" -bottom-12 right-[calc(50%-3rem)] top-auto translate-x-1/2 translate-y-0 sm:-right-12 sm:top-1/2 sm:-translate-y-1/2 sm:translate-x-0" />
         </Carousel>
       ) : (
         <div className="flex h-full w-full items-center justify-center">

@@ -1,12 +1,12 @@
 import { Link } from "@/navigation";
 
+import { api } from "@/trpc/server";
 import Container from "../ui/container";
 import MotionDiv from "../ui/motion-div";
 import Logo from "./logo";
 import MobileNav from "./mobile-nav";
 import NavItems from "./nav-items";
 import { NavMenu } from "./nav-menu";
-import { api } from "@/trpc/server";
 
 const Navbar = async () => {
   const categories = (await api.categories.getAll()).categories;
@@ -23,7 +23,7 @@ const Navbar = async () => {
           <div className="flex h-16 items-center justify-between ">
             <div className="flex gap-2">
               <MobileNav categories={categories} />
-              <div className="flex gap-8 ">
+              <div className="flex gap-3 lg:gap-8 ">
                 <Link
                   className="flex  items-center justify-center text-foreground"
                   href="/"

@@ -43,13 +43,13 @@ export const dashboardRouter = createTRPCRouter({
         totalRevenuePrice,
         totalRevenueCurrentMonthPrice,
         totalRevenuePreviousMonthPrice,
-        totalOrdersPrice,
+        totalOrdersCount,
         totalOrdersCurrentMonthPrice,
         totalOrdersPreviousMonthPrice,
         totalUsersQuantity,
         totalUsersCurrentMonthQuantity,
         totalUsersPreviousMonthQuantity,
-        totalSalesPrice,
+        totalSalesCount,
         totalSalesCurrentMonthPrice,
         totalSalesPreviousMonthPrice,
         totalProductsQuantity,
@@ -57,18 +57,18 @@ export const dashboardRouter = createTRPCRouter({
       ] = await ctx.db.$transaction([
         ctx.db.order.aggregate({
           _sum: { total: true },
-          where: { status: "PAID" },
+          where: { OR: [{ status: "PAID" }, { status: "DELIVERED" }] },
         }),
         ctx.db.order.aggregate({
           _sum: {
             total: true,
           },
           where: {
-            status: "PAID",
             createdAt: {
               gte: currentMonthStart,
               lte: currentMonthEnd,
             },
+            AND: { OR: [{ status: "PAID" }, { status: "DELIVERED" }] },
           },
         }),
         ctx.db.order.aggregate({
@@ -76,11 +76,11 @@ export const dashboardRouter = createTRPCRouter({
             total: true,
           },
           where: {
-            status: "PAID",
             createdAt: {
               gte: previousMonthStart,
               lte: previousMonthEnd,
             },
+            AND: { OR: [{ status: "PAID" }, { status: "DELIVERED" }] },
           },
         }),
         ctx.db.order.count(),
@@ -117,9 +117,12 @@ export const dashboardRouter = createTRPCRouter({
             },
           },
         }),
-        ctx.db.product.aggregate({
+        ctx.db.order.aggregate({
+          where: {
+            OR: [{ status: "PAID" }, { status: "DELIVERED" }],
+          },
           _sum: {
-            sold: true,
+            totalQuantity: true,
           },
         }),
         ctx.db.order.aggregate({
@@ -154,13 +157,13 @@ export const dashboardRouter = createTRPCRouter({
         totalRevenueCurrentMonthPrice?._sum?.total ?? 0;
       const totalRevenuePreviousMonth =
         totalRevenuePreviousMonthPrice?._sum?.total ?? 0;
-      const totalOrders = totalOrdersPrice ?? 0;
+      const totalOrders = totalOrdersCount ?? 0;
       const totalOrdersCurrentMonth = totalOrdersCurrentMonthPrice ?? 0;
       const totalOrdersPreviousMonth = totalOrdersPreviousMonthPrice ?? 0;
       const totalUsers = totalUsersQuantity ?? 0;
       const totalUsersCurrentMonth = totalUsersCurrentMonthQuantity ?? 0;
       const totalUsersPreviousMonth = totalUsersPreviousMonthQuantity ?? 0;
-      const totalSales = totalSalesPrice?._sum?.sold ?? 0;
+      const totalSales = totalSalesCount?._sum?.totalQuantity ?? 0;
       const totalSalesCurrentMonth =
         totalSalesCurrentMonthPrice?._sum?.totalQuantity ?? 0;
       const totalSalesPreviousMonth =
@@ -193,7 +196,7 @@ export const dashboardRouter = createTRPCRouter({
 
       return {
         totalRevenue: Number(totalRevenue.toFixed(2)),
-        totalSales: Number(totalSales.toFixed(2)),
+        totalSales,
         totalOrders,
         totalUsers,
         totalProducts,

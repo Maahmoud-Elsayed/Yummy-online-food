@@ -1,6 +1,8 @@
+import { mergeCounts } from "@/lib/utils";
 import { adminProcedure, createTRPCRouter } from "@/server/api/trpc";
 import { type RouterOutputs } from "@/trpc/react";
 import { TRPCError } from "@trpc/server";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export const dashboardOrdersRouter = createTRPCRouter({
@@ -85,24 +87,138 @@ export const dashboardOrdersRouter = createTRPCRouter({
         const { action, id } = input;
 
         if (action === "DELETE") {
-          await ctx.db.order.deleteMany({
+          const paidOrders = await ctx.db.order.findMany({
             where: {
               id: {
                 in: id,
               },
+              AND: {
+                OR: [{ status: "DELIVERED" }, { status: "PAID" }],
+              },
+            },
+            include: {
+              items: { select: { productId: true, quantity: true } },
             },
           });
+          if (paidOrders.length > 0) {
+            const paid = paidOrders.flatMap((order) => order.items);
+            const mergedCounts = mergeCounts(paid);
+            await ctx.db.$transaction([
+              ...mergedCounts.map((product) =>
+                ctx.db.product.update({
+                  where: { id: product.productId },
+                  data: { sold: { decrement: product.quantity } },
+                }),
+              ),
+              ctx.db.order.deleteMany({
+                where: {
+                  id: {
+                    in: id,
+                  },
+                },
+              }),
+            ]);
+            revalidatePath("/");
+          } else {
+            await ctx.db.order.deleteMany({
+              where: {
+                id: {
+                  in: id,
+                },
+              },
+            });
+          }
         } else {
-          await ctx.db.order.updateMany({
-            where: {
-              id: {
-                in: id,
+          const [PaidOrders, notPaidOrders] = await ctx.db.$transaction([
+            ctx.db.order.findMany({
+              where: {
+                id: {
+                  in: id,
+                },
+                AND: {
+                  OR: [{ status: "DELIVERED" }, { status: "PAID" }],
+                },
               },
-            },
-            data: {
-              status: action,
-            },
-          });
+              include: {
+                items: { select: { productId: true, quantity: true } },
+              },
+            }),
+            ctx.db.order.findMany({
+              where: {
+                id: {
+                  in: id,
+                },
+                AND: {
+                  OR: [{ status: "CANCELED" }, { status: "PENDING" }],
+                },
+              },
+              include: {
+                items: { select: { productId: true, quantity: true } },
+              },
+            }),
+          ]);
+          if (
+            (action === "PAID" || action === "DELIVERED") &&
+            notPaidOrders.length > 0
+          ) {
+            const notPaid = notPaidOrders.flatMap((order) => order.items);
+            const mergedCounts = mergeCounts(notPaid);
+            await ctx.db.$transaction([
+              ...mergedCounts.map((product) =>
+                ctx.db.product.update({
+                  where: { id: product.productId },
+                  data: { sold: { increment: product.quantity } },
+                }),
+              ),
+              ctx.db.order.updateMany({
+                where: {
+                  id: {
+                    in: id,
+                  },
+                },
+                data: {
+                  status: action,
+                },
+              }),
+            ]);
+            revalidatePath("/");
+          } else if (
+            (action === "CANCELED" || action === "PENDING") &&
+            PaidOrders.length > 0
+          ) {
+            const paid = PaidOrders.flatMap((order) => order.items);
+            const mergedCounts = mergeCounts(paid);
+            await ctx.db.$transaction([
+              ...mergedCounts.map((product) =>
+                ctx.db.product.update({
+                  where: { id: product.productId },
+                  data: { sold: { decrement: product.quantity } },
+                }),
+              ),
+              ctx.db.order.updateMany({
+                where: {
+                  id: {
+                    in: id,
+                  },
+                },
+                data: {
+                  status: action,
+                },
+              }),
+            ]);
+            revalidatePath("/");
+          } else {
+            await ctx.db.order.updateMany({
+              where: {
+                id: {
+                  in: id,
+                },
+              },
+              data: {
+                status: action,
+              },
+            });
+          }
         }
       } catch (error) {
         console.log("Error updating orders:", error);

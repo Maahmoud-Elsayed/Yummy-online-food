@@ -6,7 +6,7 @@ const MyAccount = ({ params: { locale } }: { params: { locale: string } }) => {
   setRequestLocale(locale);
   const t = useTranslations("pages.myAccount");
   return (
-    <div className="my-10">
+    <div className="my-6">
       <h2 className="text-xl font-medium text-foreground">{t("title")}</h2>
       <AccountForm />
     </div>

@@ -1,10 +1,10 @@
 import { filteredProductsSchema } from "@/lib/validations-schema/product-schema";
+import { type Product } from "@/server/api/routers/products";
 import { api } from "@/trpc/server";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import ProductCard from "../products/product-card";
 import { PagePagination } from "./page-pagination";
-import { getTranslations } from "next-intl/server";
-import { type Product } from "@/server/api/routers/products";
 
 type ProductListProps = {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -38,7 +38,7 @@ const ProductsList = async ({ searchParams }: ProductListProps) => {
     <>
       <div className="">
         {products.length > 0 ? (
-          <ul className=" grid w-full grid-cols-1 justify-items-center gap-4 md:grid-cols-2 lg:grid-cols-2 lg:gap-6">
+          <ul className=" grid w-full grid-cols-1 justify-items-center gap-6 md:grid-cols-2 lg:grid-cols-2">
             {products.map((product) => (
               <li className="flex w-full justify-center" key={product.id}>
                 <ProductCard product={product} />

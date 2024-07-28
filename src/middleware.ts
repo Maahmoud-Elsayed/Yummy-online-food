@@ -1,7 +1,7 @@
 import { type NextRequestWithAuth, withAuth } from "next-auth/middleware";
 import createIntlMiddleware from "next-intl/middleware";
 import { NextRequest, NextResponse } from "next/server";
-import { locales, localePrefix } from "./navigation";
+import { localePrefix, locales } from "./navigation";
 
 const intlMiddleware = createIntlMiddleware({
   locales,
@@ -9,10 +9,18 @@ const intlMiddleware = createIntlMiddleware({
   defaultLocale: "en",
 });
 
-function matchesPath(pathname: string, targetPath: string): boolean {
+function matchesPath(
+  pathname: string,
+  targetPath: string,
+  opts: { compareType?: "exact" | "startsWith" } = {
+    compareType: "startsWith",
+  },
+): boolean {
   const localePattern = /^\/(en|ar)(\/|$)/;
   const normalizedPath = pathname.replace(localePattern, "/");
-  return normalizedPath.startsWith(targetPath);
+  return opts.compareType === "startsWith"
+    ? normalizedPath.startsWith(targetPath)
+    : normalizedPath === targetPath;
 }
 
 const authMiddleware = withAuth(
@@ -37,7 +45,7 @@ const authMiddleware = withAuth(
       return NextResponse.rewrite(new URL(`/${locale}/denied`, request.url));
     }
     if (
-      matchesPath(pathname, "/my-account") &&
+      matchesPath(pathname, "/my-account", { compareType: "exact" }) &&
       token?.email === "admin@yummy.com"
     ) {
       return NextResponse.rewrite(new URL(`/${locale}/denied`, request.url));
@@ -58,9 +66,6 @@ const authMiddleware = withAuth(
         return true;
       },
     },
-    // pages: {
-    //   signIn: "/login",
-    // },
   },
 );
 

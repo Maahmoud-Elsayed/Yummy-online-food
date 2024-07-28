@@ -26,12 +26,12 @@ const SortFilter = () => {
   });
   const t = useTranslations("pages.products.sort");
   return (
-    <div className=" mx-4 bg-white">
+    <div className=" mx-4 ">
       <Select
         onValueChange={(value) => setSortBy(value as SortBy)}
         value={sortBy}
       >
-        <SelectTrigger className="w-full min-w-40">
+        <SelectTrigger className="w-full min-w-40 max-w-60 bg-white ">
           <SelectValue placeholder={t("sortBy")} />
         </SelectTrigger>
         <SelectContent>

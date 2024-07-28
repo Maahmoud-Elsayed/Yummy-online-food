@@ -35,7 +35,7 @@ const OrderActions = ({ status, id }: OrderActionsProps) => {
     });
   return (
     <>
-      {(status === "PAID" || status === "PENDING") && (
+      {status === "PAID" && (
         <LoadingButton
           variant="destructive"
           size={"sm"}

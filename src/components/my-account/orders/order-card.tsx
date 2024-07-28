@@ -1,11 +1,10 @@
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn, formattedDate } from "@/lib/utils";
+import { Link, type Locale } from "@/navigation";
 import { type Orders } from "@/server/api/routers/orders";
-import { Link } from "@/navigation";
-import OrderActions from "./order-actions";
 import { useLocale, useTranslations } from "next-intl";
-import { type Locale } from "@/navigation";
+import OrderActions from "./order-actions";
 
 type OrderCardProps = {
   order: Orders[number];
@@ -64,7 +63,9 @@ const OrderCard = ({ order }: OrderCardProps) => {
       </div>
       <Separator />
       <div className="flex justify-end gap-4">
-        <OrderActions status={order.status} id={order.id} />
+        {(order.status === "PENDING" || order.status === "PAID") && (
+          <OrderActions status={order.status} id={order.id} />
+        )}
         <Link
           href={`/my-account/orders/${order.id}`}
           className={buttonVariants({

@@ -23,9 +23,9 @@ export function generateMetadata({
 
 const Order = ({ params }: { params: { orderId: string } }) => {
   return (
-    <div className="mb-20 mt-10 flex justify-center">
+    <div className="my-6 flex justify-center">
       <Suspense fallback={<LoadingSpinner />}>
-        <Receipt orderId={params.orderId} />
+        <Receipt orderId={params.orderId} page="user" />
       </Suspense>
     </div>
   );

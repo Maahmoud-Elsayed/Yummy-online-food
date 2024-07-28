@@ -438,6 +438,7 @@
       "Medium": "Medium",
       "Large": "Large",
       "off": "OFF",
+      "priceSelection": "Price on selection",
       "modals": {
         "title": "Delete Product",
         "description": "This action cannot be undone. Are you sure you want to permanently delete this product?",

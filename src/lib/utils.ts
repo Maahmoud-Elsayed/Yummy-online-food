@@ -27,7 +27,6 @@ export function getBaseUrl() {
   return `http://localhost:${process.env.PORT ?? 3000}`;
 }
 
-
 export function formatPrice(
   price: number | string,
   options: {
@@ -93,7 +92,7 @@ export const mergeCounts = (
 
   return Object.keys(counts).map((productId: string) => ({
     productId,
-    quantity: counts[productId],
+    quantity: counts[productId] ?? 0,
   }));
 };
 

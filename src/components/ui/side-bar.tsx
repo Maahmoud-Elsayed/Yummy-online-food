@@ -57,7 +57,7 @@ const SideBar = ({ menuItems, withCollapsed }: SideBarProps) => {
       <Sidebar
         collapsed={collapsed}
         className="relative hidden h-full md:block"
-        width={!withCollapsed ? "200px" : undefined}
+        width={!withCollapsed ? "210px" : undefined}
         rtl={locale === "ar"}
         // backgroundColor="#f0fdf4"
         breakPoint="md"
