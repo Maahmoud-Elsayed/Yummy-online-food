@@ -29,7 +29,7 @@ const ProductOverview = async ({ productId }: ProductOverviewProps) => {
   const locale = (await getLocale()) as Locale;
 
   return (
-    <Card className=" mt-10 flex w-full flex-col gap-5 p-5 md:flex-row md:gap-10 md:rtl:flex-row-reverse">
+    <Card className=" mt-6 flex w-full flex-col gap-5 p-5 md:flex-row md:gap-10 md:rtl:flex-row-reverse">
       <div className=" flex w-full flex-1 items-center justify-center rounded-lg bg-[#F7F7F7]">
         <div className="relative aspect-square h-full max-h-[300px] w-full max-w-[300px] overflow-hidden rounded-lg">
           <Image

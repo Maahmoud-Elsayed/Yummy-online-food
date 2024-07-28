@@ -2,7 +2,6 @@
 
 import { Link, type Locale } from "@/navigation";
 
-import { useMediaQuery } from "react-responsive";
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -29,18 +28,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useMemo, useState } from "react";
-import { useParams, usePathname } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { api } from "@/trpc/react";
+import { useLocale, useTranslations } from "next-intl";
+import { useParams, usePathname } from "next/navigation";
+import { useMemo, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 const ITEMS_TO_DISPLAY = 2;
 const BreadcrumbResponsive = ({
-  isProduct,
+  productName,
   className,
 }: {
-  isProduct?: boolean;
+  productName?: string;
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
@@ -49,15 +48,6 @@ const BreadcrumbResponsive = ({
   const params = useParams();
   const productId = params?.productId;
   const orderId = params?.orderId;
-
-  const { data: product } = api.products.getProductName.useQuery(
-    productId as string,
-    {
-      enabled: !!productId && isProduct,
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
-    },
-  );
 
   const locale = useLocale() as Locale;
 
@@ -159,11 +149,7 @@ const BreadcrumbResponsive = ({
             <ItemPath
               key={index}
               href={item.href}
-              label={
-                product && isProduct && isLast
-                  ? product[`name_${locale}`]
-                  : item.label
-              }
+              label={productName && isLast ? productName : item.label}
               isLast={isLast}
             />
           );

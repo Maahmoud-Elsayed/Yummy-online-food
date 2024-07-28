@@ -36,11 +36,25 @@ export async function generateMetadata({ params }: ProductDetailsProps) {
     description: product[`description_${locale}`],
   };
 }
-const ProductDetails = ({ params, searchParams }: ProductDetailsProps) => {
+const ProductDetails = async ({
+  params,
+  searchParams,
+}: ProductDetailsProps) => {
   const tapParam = searchParams?.tab ?? "overview";
+  const locale = params.locale;
+  let productName = "";
+  try {
+    const product = await api.products.getProductName(params.productId);
+    if (!product) {
+      notFound();
+    }
+    productName = product[`name_${locale}`];
+  } catch (error) {
+    notFound();
+  }
   return (
-    <Container className="my-10">
-      <BreadcrumbResponsive className="mb-5" isProduct />
+    <Container className="my-6">
+      <BreadcrumbResponsive className="mb-6" productName={productName} />
       <Tabs
         defaultValue={tapParam as string}
         value={tapParam as string}
