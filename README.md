@@ -1,6 +1,6 @@
 # YUMMY
 
-Yummy is an online food ordering application built with T3 Stack including Next.js, Typescript, NextAuth.js, Prisma, Tailwind CSS, Chadcn ui, tRPC, and a variety of modern web technologies. It allows users to browse menus, place orders, and manage their accounts with ease.
+Yummy is an online food ordering application built with T3 Stack including Next.js, Typescript, NextAuth.js, Prisma, Tailwind CSS, Chadcn ui, tRPC, Zustand, Framer Motion and a variety of modern web technologies. It allows users to browse menus, place orders, and manage their accounts with ease.
 Yummy integrates a robust admin panel dashboard for easy management of users, orders, categories, and products.
 
 ## Table of Contents
@@ -30,8 +30,8 @@ Yummy integrates a robust admin panel dashboard for easy management of users, or
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Maahmoud-Elsayed/Yummy-online-food-ordering.git
-   cd Yummy-online-food-ordering
+   git clone https://github.com/Maahmoud-Elsayed/Yummy-online-food.git
+   cd Yummy-online-food
 
    ```
 
@@ -103,6 +103,7 @@ Replace `your_*` with the appropriate values for your setup.
 ### Technologies Used
 
 - Next.js: React framework for server-side rendering and static site generation
+- NextAuth.js: Authentication for Next.js
 - TypeScript: Superset of JavaScript for static typing
 - Prisma: ORM for database management
 - TRPC: Typesafe APIs using TypeScript
