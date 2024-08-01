@@ -1,6 +1,7 @@
 # YUMMY
 
 Yummy is an online food ordering application built with T3 Stack including Next.js, Typescript, NextAuth.js, Prisma, Tailwind CSS, Chadcn ui, tRPC, Zustand, Framer Motion and a variety of modern web technologies. It allows users to browse menus, place orders, and manage their accounts with ease.
+The application supports both Arabic and English languages.
 Yummy integrates a robust admin panel dashboard for easy management of users, orders, categories, and products.
 
 ## Table of Contents
@@ -19,6 +20,7 @@ Yummy integrates a robust admin panel dashboard for easy management of users, or
 - Responsive design for mobile and desktop: The application is designed to be accessible and usable on both mobile devices and desktop computers.
 - Real-time order updates: Users receive real-time updates on the status of their orders.
 - Secure payment processing with Stripe: Integration with Stripe for secure payment processing.
+- Multi-language support: The application supports both Arabic and English languages.
 - Admin dashboard: An administrative interface where admins can manage users, orders, categories, and products. This includes functionalities such as:
   - User management: Admins can view, create, edit, and delete user accounts.
   - Order management: Admins can view and update the status of orders, such as marking them as fulfilled or canceled.
@@ -119,3 +121,4 @@ Replace `your_*` with the appropriate values for your setup.
 - React Email: Email components and management
 - Neon DB: Serverless Postgres database
 - React Query: Data fetching and synchronization
+- Next-intl: Internationalization for Next.js applications
