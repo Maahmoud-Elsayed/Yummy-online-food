@@ -14,7 +14,7 @@ const HeroSection = () => {
         alt="banner1"
         width={194}
         height={366}
-        priority
+        // priority
       />
       <Container className="relative my-10 sm:absolute sm:left-1/2 sm:top-1/2 sm:my-0   sm:w-auto sm:-translate-x-1/2 sm:-translate-y-1/2 sm:!p-0">
         <h2 className="  text-start text-2xl font-medium text-foreground sm:text-4xl sm:font-semibold sm:tracking-wider">
@@ -34,7 +34,7 @@ const HeroSection = () => {
         alt="banner2"
         height={340}
         width={460}
-        priority
+        // priority
       />
     </section>
   );
